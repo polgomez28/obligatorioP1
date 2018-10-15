@@ -1,0 +1,96 @@
+table form, p label {
+  font: .9em cursive, Helvetica, sans-serif;
+  border: 1px solid #333;
+  border-collapse: collapse;
+  text-align: center;
+}
+p {
+    background: #FFFFCC
+}
+table th {
+  background: #F5F5F5;
+  padding: 0 .3em;
+}
+.user {
+  background: #E6F3FF url(imagenes/user.png) no-repeat left center;
+  padding: 0 .3em 0 1.2em;
+  width: 10px;
+  height: 10px;
+}
+.estado {
+  background: #E6F3FF url(imagenes/ok.png) no-repeat left center;
+  padding: 0 .3em 0 1.2em;
+  width: 10px;
+  height: 10px;
+}
+.estado2 {
+  background: #E6F3FF url(imagenes/no.png) no-repeat left center;
+  padding: 0 .3em 0 1.2em;
+  width: 10px;
+  height: 10px;
+}
+table th.User {
+  background: #E6F3FF;
+  padding: 0 .3em 0 1.2em;
+}
+table th.User {
+  background: #E6F3FF;
+  padding: 0 .3em 0 1.2em;
+}
+table th.User {
+  background: #E6F3FF;
+  padding: 0 .3em 0 1.2em;
+}
+.lista {
+  background: #E6F3FF url(imagenes/checklist.png) no-repeat left center;
+  padding: 0 .3em 0 1.2em;
+  width: 20px;
+  height: 40px;
+}
+
+table th, table, td {
+  border: none;
+  line-height: 2em;
+}
+.fila {
+  text-align: left;
+}
+.par {
+  background-color:#FFFFCC;
+}
+table tr:hover {
+  background: #FFFF66 !important;
+}
+input:focus { background-color: #FFFFCC; }
+form  {
+    display: table;      
+}
+p { 
+    display: table-row;  
+}
+label { 
+    display: table-cell; 
+}
+input { 
+    display: table-cell; 
+}
+.contenedor {
+    text-align: center;
+    display:inline-block
+}
+.center {
+    float: left;
+    display:inline-block
+}
+.left {
+    float: left;
+    width: 500px;
+    height: 500px;
+    display:inline-block
+}
+.right {
+    float: left;
+    width: 500px;
+    display:inline-block
+}
+    

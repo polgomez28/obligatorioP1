@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link href="estilos.css" rel="stylesheet" type="text/css"/>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="contenedor">
+            <div class="left">
+                <form>
+                    <fieldset>
+                        <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Usuarios pendientes</h3></legend>
+                        <table>
+                            <tr>
+                                <th class="lista"></th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Estado</th>
+                                
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>Gómez</td>
+                                <td>pg@gmail.com</td>
+                                <td class="estado"></td>
+                                
+                            </tr>
+                            <tr>
+                                <th class="user"></th>
+                                <td>Ramirez</td>
+                                <td>remirez@gmail.com</td>
+                                <td class="estado2"></td>
+                                
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>Fernandez</td>
+                                <td>fernandez@gmail.com</td>
+                                <td class="estado"></td>
+                                
+                            </tr>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="center">
+                <form>
+                    <fieldset>
+                        <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Listado ofertas</h3></legend>
+                        <table>
+                            <tr>
+                                <th class="lista"></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Celeste</td>
+                                <td>Colonia</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$1200</td>
+                                <td>Ninguna</td>
+                                <td class="estado"></td>
+                                
+                            </tr>
+                            <tr>
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Casona</td>
+                                <td>Rocha</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hostel</td>
+                                <td>$800</td>
+                                <td>2</td>
+                                <td class="estado"></td>
+                                
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>El fugaz</td>
+                                <td>Salto</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$750</td>
+                                <td>Ninguna</td>
+                                <td class="estado"></td>
+                            </tr>
+                        </table>
+                    </fieldset>                        
+                </form>
+            </div>
+            <div class="right">
+                <form>
+                    <fieldset>
+                        <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Crear Ofertas</h3></legend>
+                        <p>
+                            Indicador de oferta: (autonumerado)
+                        </p>
+                        <p>
+                            Nombre hospedaje <input type="text" id="txtNombreHosp">
+                        </p>
+                        <p>
+                            Ubicación <input type="text" id="txtUbicacion">
+                        </p>
+                        <p>
+                            Imagen <input type="button" id="btnImagenHospedaje" value="Examinar">
+                        </p>
+                        <p>
+                            Tipo (hotel, hostel, casa o apartamento) <select name="tipoHospedaje">
+                                <option>Hotel</option>
+                                <option>Hostel</option>
+                                <option>Casa</option>
+                                <option>Apartamento</option>
+                            </select>
+                        </p>
+                        <p>
+                            Noches de alojamiento <input type="text" id="txtNoches">
+                        </p>
+                        <p>
+                            Precio <input type="text" id="txtPrecio">
+                        </p>
+                        <p>
+                            Fecha validez <input type="date" id="fechaValidez">
+                        </p>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
