@@ -4,9 +4,8 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
-    <head>
-        <link href="estilos.css" rel="stylesheet" type="text/css"/>
+<html><head>
+        <link href="estilos.css" rel="stylesheet" type="text/css">
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +17,7 @@ and open the template in the editor.
                     <fieldset>
                         <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Usuarios pendientes</h3></legend>
                         <table>
-                            <tr>
+                            <tbody><tr>
                                 <th class="lista"></th>
                                 <th>Nombre</th>
                                 <th>Email</th>
@@ -46,7 +45,7 @@ and open the template in the editor.
                                 <td class="estado"></td>
                                 
                             </tr>
-                        </table>
+                        </tbody></table>
                     </fieldset>
                 </form>
             </div>
@@ -55,7 +54,7 @@ and open the template in the editor.
                     <fieldset>
                         <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Listado ofertas</h3></legend>
                         <table>
-                            <tr>
+                            <tbody><tr>
                                 <th class="lista"></th>
                                 <th>Id oferta</th>
                                 <th>Hospedaje</th>
@@ -100,7 +99,7 @@ and open the template in the editor.
                                 <td>Ninguna</td>
                                 <td class="estado"></td>
                             </tr>
-                        </table>
+                        </tbody></table>
                     </fieldset>                        
                 </form>
             </div>
@@ -139,7 +138,34 @@ and open the template in the editor.
                         </p>
                     </fieldset>
                 </form>
+              
             </div>
+            <div class="right">
+                <form>
+                    <fieldset>
+                        <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Crear Usuario </h3></legend>
+                        <p>
+                            Nombre:<input type="text" id="txtNobreUsuario"/>
+                        </p>
+                        <p>
+                            Apellido: <input type="text" id="txtApellidoUsuario"/>
+                        </p>
+                        <p>
+                            Correo Electronico : <input type="text" id="txtCorreousuario" value="prueba@gmail.com"/>
+                        </p>
+                        <p>
+                            Contraseña: <input type="password" name="pass" pattern="[A-Za-z0-9]{1,8}"/> 
+                            //contraseña con numeros y letras
+                        </p>
+                        <p>
+                             <input type="button" id="btnContraseña" value="Enviar" />
+                        </p>
+                    </fieldset>
+                </form>
+              
+            </div>
+            
         </div>
-    </body>
-</html>
+    
+
+</body></html>
