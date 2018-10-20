@@ -143,6 +143,26 @@ and open the template in the editor.
             <div class="right">
                 <form>
                     <fieldset>
+                        <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Log In </h3></legend>
+                        <p>
+                            Usuario :<input type="text" id="txtUsuarioLogIn"/><img src="imagenes/help.png" title="Debe ser valor único" class="help">
+                        </p>
+                        <p>
+                            Contraseña: <input type="password" name="pass" pattern="[A-Za-z0-9]{1,8}"/><img src="imagenes/help.png" title="//contraseña con numeros y letras" class="help">
+                        <p>
+                            <br>
+                             <input type="button" id="btnLogIn" value="Enviar" />
+                        </p>
+                        <input type="reset" name="Borrar" id="BorrarLogIn" value="Reset" class="boton" />
+                    </fieldset>
+                </form>
+
+            </div>
+
+        </div>
+            <div class="right">
+                <form>
+                    <fieldset>
                         <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Crear Usuario </h3></legend>
                         <p>
                             Nick :<input type="text" id="txtNick"/><img src="imagenes/help.png" title="Debe ser valor único" class="help">
