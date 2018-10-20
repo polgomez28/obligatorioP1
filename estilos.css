@@ -17,6 +17,10 @@ table th {
   width: 10px;
   height: 10px;
 }
+.help {
+    width: 17px;
+    height: 17px;
+}
 .estado {
   background: #E6F3FF url(imagenes/ok.png) no-repeat left center;
   padding: 0 .3em 0 1.2em;
