@@ -143,6 +143,40 @@ and open the template in the editor.
             <div class="right">
                 <form>
                     <fieldset>
+                        <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Confirmar Oferta</h3></legend>
+
+                        <p>
+                            Nombre hospedaje <input type="text" id="txtNombreHosp">
+                        </p>
+                        <p>
+                            Ubicación <input type="text" id="txtUbicacion">
+                        </p>
+                        <p>
+                            Imagen <input type="button" id="btnImagenHospedaje" value="Examinar">
+                        </p>
+                        <p>
+                            Tipo (ej. hotel)<select name="tipoHospedaje">
+                                <option>Hotel</option>
+                                <option>Hostel</option>
+                                <option>Casa</option>
+                                <option>Apartamento</option>
+                            </select>
+                        </p>
+                        <p>
+                            Noches de alojamiento <input type="text" id="txtNoches">
+                        </p>
+                        <p>
+                            Fecha de ingreso al alojamiento <input type="date" id="fechaValidez">
+                        </p>
+                        <input type="button" id="c=btnConfirmarReserva" value="Confirar Reserva" >
+
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="right">
+                <form>
+                    <fieldset>
                         <legend style="font: .9em cursive, Helvetica, sans-serif;"><h3>Log In </h3></legend>
                         <p>
                             Usuario :<input type="text" id="txtUsuarioLogIn"/><img src="imagenes/help.png" title="Debe ser valor único" class="help">
