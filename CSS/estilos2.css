@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+h2 {
+    font: bold 20px sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+}
+article,div {
+    display: block;
+}
+.agrupar {
+    width: 960px;
+    border: 1px solid black;
+    margin: auto;
+    padding: 40px;
+}
+.seccion {
+    margin: 20px;
+    width: 600px;
+    border: 1px black;
+}
+article {
+    background: #00a562;
+    border: 1px solid #999;
+    padding: 20px;
+    margin-bottom: 15px;
+    margin: auto;
+}
+.oferta {
+    background: #fff;
+    width: 550px;
+    height: 150px;
+    padding: 20px;
+    position: relative;
+    
+}
+.OfertaImg {
+    position: relative;
+    top: 20px;
+}
+img {
+    width: 200px;
+    height: 120px;
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+}

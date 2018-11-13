@@ -1,0 +1,349 @@
+body {
+    margin: 0;
+    padding: 0;
+
+}
+.login-box{
+    width: 320px;
+    height: 420px;
+    background: #9E7B16;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+    display: none;
+}
+.login-box .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+.login-box h1{
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 22px;
+}
+.login-box label{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    display: block;
+}
+.login-box input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+.login-box input[type="text"],
+.login-box input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+.login-box input[type="submit"]{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: sienna;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+.login-box a {
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+.login-box a:hover{
+    color: #fff;
+}
+
+/* Estilos para listado de ofertas y favoritos
+
+*/
+.textoOferta{
+    width: 350px;
+    height: 100px;
+    position: relative;
+    bottom: 250px;
+    left: 170px;
+}
+.textoOfertaFav{
+    width: 350px;
+    height: 100px;
+    position: relative;
+    bottom: 200px;
+    left: 80px;
+}
+.botonesOfertaFav{
+    width: 200px;
+    height: 42px;
+    position: relative;
+    top: -300px;
+    left: 45px;
+    margin: auto;
+    margin-top: 5px;
+}
+.Estrellas {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: 55px;
+}
+section {
+    width: 350px;
+    height: 60px;
+    float: right;
+    margin-top: 2px;
+}
+.botonesOferta{
+    width: 200px;
+    height: 42px;
+    position: relative;
+    top: -130px;
+    left: 35px;
+    margin: auto;
+    margin-top: 5px;
+}
+.botonesOferta p {
+    display: inline;
+    
+}
+.puntaje {
+    display: inline-block;
+    position: relative;
+    top: 8px;
+    left: 5px;
+    background: darkorange;
+    color: white;
+}
+.puntaje2 {
+    display: inline-block;
+    position: relative;
+    top: 8px;
+    background: green;
+    color: white;
+}
+.puntaje3 {
+    display: inline-block;
+    position: relative;
+    top: 8px;
+    background: green;
+    color: white;
+}
+
+.opiniones {
+    position: relative;
+    left: 35px;
+    top: -10px;
+    color: dimgray;
+}
+.servicio{
+    position: relative;
+    top: -8px; 
+}
+.servicio2 {
+    position: relative;
+    top: 0px; 
+}
+input {
+    margin-top: 5px;
+}
+.boton_1{
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: helvetica;
+    font-weight: 300;
+    font-size: 15px;
+    font-style: italic;
+    color: #006505;
+    background-color: limegreen;
+    border-radius: 15px;
+    position: relative;
+    left: 135px;
+    top: 5px;
+  }
+.boton_1:hover{
+    opacity: 0.6;
+    text-decoration: none;
+  }
+.boton_2 {
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: helvetica;
+    font-weight: 300;
+    font-size: 15px;
+    font-style: italic;
+    color: #006505;
+    background-color: limegreen;
+    border-radius: 15px;
+    position: relative;
+    top: 5px;
+  }
+.boton_2:hover{
+    opacity: 0.6;
+    text-decoration: none;
+  }
+.boton_Reserva {
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: helvetica;
+    font-weight: 300;
+    font-size: 15px;
+    font-style: italic;
+    color: #006505;
+    background-color: limegreen;
+    border-radius: 15px;
+    position: relative;
+    top: 5px;
+    left: 200px;
+  }
+.boton_Reserva:hover{
+    opacity: 0.6;
+    text-decoration: none;
+  }
+.boton_ReservaFav {
+    text-decoration: none;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: helvetica;
+    font-weight: 300;
+    font-size: 15px;
+    font-style: italic;
+    color: #000;
+    background-color: #636363;
+    border-radius: 15px;
+    position: relative;
+    top: -5px;
+    left: 200px;
+}
+.boton_ReservaFav{
+      position: relative;
+      left: 385px;
+}
+.boton_ReservaFav:hover{
+    opacity: 0.6;
+    text-decoration: none;
+}
+.contenedor{
+      background: white;
+      margin: auto;
+      border: 1px solid black;
+      width: 500px;
+      height: 200px;
+      margin-top: 10px;
+}
+h2 {
+      text-align: center;
+      color: #161525;
+      font-family: sans-serif;
+}
+h3 {
+    color: black;
+    position: relative;
+    bottom: -115px;
+}
+
+#chartdiv {
+  width: 50%;
+  height: 400px;
+  border: 1px solid black;
+  margin: auto;
+  margin-top: 50px
+}
+
+.amcharts-export-menu-top-right {
+  top: 10px;
+  right: 0;
+}
+.divFondo{
+    height: 350px;
+    width: 650px;
+    margin: auto;
+    border: 1px solid black;
+    background-color: #fff;
+    position: relative;
+    top: 50px;
+}
+#chartContainer{
+    position: relative;
+    top: -200px;
+    right: 25px;
+    
+}
+.imgfav {
+    width: 85px;
+    height: 85px;
+    position: relative;
+    top: 5px;
+    left: 35px;
+}
+.checkEliminar{
+    position: relative;
+    bottom: 25px;
+}
+.contenedorFav {
+      background: white;
+      margin-top: 10px;
+      height: 100px;
+      width: 500px;
+  }
+.contenedorFavElim {
+      background: white;
+      margin-top: 10px;
+      height: 25px;
+      width: 500px;
+  }
+.checkEliminar2{
+    position: relative;
+    bottom: 5px;
+}
+#prueba{
+    display: none;
+}
+.contenedorOfertas{
+    position: relative;
+    top: 80px;
+    display: none;
+}
+.crearOfertas{
+    width: 400px;
+    height: 250px;
+    position: relative;
+    bottom: 343px;
+    display: none;
+}
+.crearUsuario{
+    width: 400px;
+    height: 250px;
+    position: relative;
+    left: 950px;
+    bottom: 590px;
+    display: none;
+}
+.listadoOfertas{
+    width: 510px;
+    height: 550px;
+    position: relative;
+    bottom: 400px;
+    left: 420px;
+    display: none;
+}

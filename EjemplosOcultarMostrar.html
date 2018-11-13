@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <script src="JS/jquery-3.3.1.min.js" type="text/javascript"></script>
+        <script src="JS/codigo.js" type="text/javascript"></script>
+        <script src="JS/OcultarMostrar.js" type="text/javascript"></script>
+        <link href="CSS/OcultarMostrar.css" rel="stylesheet" type="text/css"/>
+        <title>Ocultar y mostrar</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="menu">
+            <ul>
+                <li><a href="#" class="opcionUno" >Opción 1</a></li>
+                <li><a href="#" class="opcionDos" >Opción 2</a></li>
+                <li><a href="#" class="opcionTres" >Opción 3</a></li>
+                <li><a href="#" class="btnMenu" >Menu</a></li>
+            </ul>
+        </div>
+        <div class="opcion1" id="usuariosPen">
+                <form>
+                    <fieldset>
+                        <legend>Solicitud de Registros</legend>
+                        <table>
+                            <thead>
+                                <tr><td style="font-size: 16px"> Usuarios </td><td style="font-size: 16px"> Estados </td><td style="font-size: 16px"> Correo </td><td><input type="button" id="btnSolicitudRegistro" value="Listar"></td></tr>
+                            </thead>
+                            <tbody id="solicitudRegistro">
+                            </tbody>
+                        </table>
+                    </fieldset>
+                </form>
+            </div>
+        <div class="opcion1" id="crearOferta">
+                <form>
+                    <fieldset>
+                        <legend>Crear Ofertas</legend>
+                        <p>
+                            Id: <label id="idOfertaForm"></label>
+                        </p>
+                        <p>
+                            Nombre hospedaje <input type="text" id="txtNombreHosp">
+                        </p>
+                        <p>
+                            Ubicación <input type="text" id="txtUbicacion">
+                        </p>
+                        <p>
+                            Tipo de hospedaje <select id="hosTipo"></select>
+                        </p>
+                        <p>
+                            Precio <input type="text" id="txtPrecio">
+                        </p>
+                        <p>
+                            Fecha validez <input type="text" id="fechaValidez" value="dd / mm / aaaa">
+                        </p>
+                        <input type="button" id="btnCrearOferta" value="Crear">
+                        <br>
+                        <div id="respCreaOferta"></div>
+                    </fieldset>
+                </form>
+            </div>
+        <div class="opcion1">
+                <form>
+                    <fieldset>
+                        <legend>Listado ofertas</legend>
+                        <table>
+                            <tbody><tr>
+                                <th class="lista"></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                                <th>Habilitar</th>
+                                <th>Deshabilitar</th>
+                                <th>Destacar</th>
+                            </tr>
+                                <td>AutoId</td>
+                                <td>La Celeste</td>
+                                <td>Colonia</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$1200</td>
+                                <td>Ninguna</td>
+                                <td><input type="checkbox" class="check"></td>
+                                <td><input type="checkbox" class="check"></td>
+                                <td><input type="checkbox" class="check"></td>
+                            </tr>
+                            <tr>
+                                <td>AutoId</td>
+                                <td>La Casona</td>
+                                <td>Rocha</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hostel</td>
+                                <td>$800</td>
+                                <td>2</td>
+                                <td><input type="checkbox" class="check"></td>
+                                <td><input type="checkbox" class="check"></td>
+                                <td><input type="checkbox" class="check"></td>
+                            </tr>
+                            <tr>
+                                <td>AutoId</td>
+                                <td>El fugaz</td>
+                                <td>Salto</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$750</td>
+                                <td>Ninguna</td>
+                                <td><input type="checkbox" class="check"></td>
+                                <td><input type="checkbox" class="check"></td>
+                                <td><input type="checkbox" class="check"></td>
+                            </tr>
+                        </tbody></table>
+                    </fieldset>
+                </form>
+            </div>
+        <div class="opcion1">
+            <form>
+                <fieldset>
+                    <legend>Listado de reservas</legend>
+                    <br>
+                    <form>
+                        <fieldset>
+                            <legend>Confirmadas</legend>
+                            <br>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id oferta</th>
+                                        <th>Usuario</th>
+                                        <th>Noches</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>471</td>
+                                    <td>Joaquin_e</td>
+                                    <td>3</td>
+                                    <td><input type="checkbox" class="CheckReservas"></td>
+                                </tbody>
+                                <tbody>
+                                    <td>84</td>
+                                    <td>Franco</td>
+                                    <td>4</td>
+                                    <td><input type="checkbox" class="CheckReservas"></td>
+                                </tbody>
+                                <tbody>
+                                    <td>324</td>
+                                    <td>Marito23</td>
+                                    <td>2</td>
+                                    <td><input type="checkbox" class="CheckReservas"></td>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                    <form>
+                        <fieldset>
+                            <legend>No confirmadas</legend>
+                            <br>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id oferta</th>
+                                        <th>Usuario</th>
+                                        <th>Noches</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>41</td>
+                                    <td>Lorena2</td>
+                                    <td>3</td>
+                                    <td><input type="checkbox" class="CheckReservas"></td>
+                                </tbody>
+                                <tbody>
+                                    <td>24</td>
+                                    <td>JoseL</td>
+                                    <td>4</td>
+                                    <td><input type="checkbox" class="CheckReservas"></td>
+                                </tbody>
+                                <tbody>
+                                    <td>124</td>
+                                    <td>Celia_2</td>
+                                    <td>2</td>
+                                    <td><input type="checkbox" class="CheckReservas"></td>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                    <form>
+                        <fieldset>
+                            <legend>Denegadas</legend>
+                            <br>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id oferta</th>
+                                        <th>Usuario</th>
+                                        <th>Noches</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>451</td>
+                                    <td>Lorena23</td>
+                                    <td>3</td>
+                                    
+                                </tbody>
+                                <tbody>
+                                    <td>214</td>
+                                    <td>Charly_2</td>
+                                    <td>4</td>
+                                    
+                                </tbody>
+                                <tbody>
+                                    <td>124</td>
+                                    <td>SalvaTol</td>
+                                    <td>2</td>
+                                    
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </form>
+                </fieldset>
+            </form>
+        </div>
+        <!--
+        INICIO DE LOS CONTENEDORES DE LA OPCION 2 (USUARIO REGISTRADO)
+        ESTOS SE MOSTRARAN PARA LOS USUARIOS REGISTRADOS.
+        -->
+        <div class="opcion2">
+                <form>
+                    <fieldset>
+                        <legend>Listado ofertas destacadas</legend>
+                        <table>
+                            <tbody><tr>
+                                <th class="lista"></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                                <th>Fin validez</th>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Celeste</td>
+                                <td>Colonia</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$1200</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr>
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Casona</td>
+                                <td>Rocha</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hostel</td>
+                                <td>$800</td>
+                                <td>2</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>El fugaz</td>
+                                <td>Salto</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$750</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                        </tbody></table>
+                    </fieldset>
+                </form>
+            </div>
+        <div class="opcion2">
+            <form>
+                <fieldset>
+                    <legend>Favoritas</legend>
+                    <br>
+                    <table>
+                            <tbody><tr>
+                                <th class="lista"></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                                <th>Fin validez</th>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Celeste</td>
+                                <td>Colonia</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$1200</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr>
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Casona</td>
+                                <td>Rocha</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hostel</td>
+                                <td>$800</td>
+                                <td>2</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                        </tbody></table>
+                </fieldset>
+            </form>
+        </div>
+        <div class="opcion2">
+            <fieldset>
+                <legend>Más OFertas!</legend>
+                <br>
+                <table>
+                            <tbody><tr>
+                                <th></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                                <th>Fin validez</th>
+                            </tr>
+                            <tr>
+                                <td id="masOfertas"></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                
+                            </tr>
+                            <tr>
+                                <th></th>
+                                
+                            </tr>
+                        </tbody>
+                </table>
+                <input type="button" id="btnMostrarOfertas" value="Mostrar">
+            </fieldset>
+        </div>
+        <div class="opcion2">
+            <form>
+                <fieldset>
+                    <legend>Mis reservas</legend>
+                    <br>
+                    <table>
+                            <tbody><tr>
+                                <th>Id reserva</th>
+                                <th>Estado</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Fin validez</th>
+                            </tr>
+                            <tr>
+                                <td>215</td>
+                                <td>utilizada</td>
+                                <td>La Boca</td>
+                                <td>$1200</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr>
+                                <td>315</td>
+                                <td>Pendiente</td>
+                                <td>La Casona</td>
+                                <td>$1500</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr>
+                                <td>28</td>
+                                <td>Rechazada</td>
+                                <td>La Redención</td>
+                                <td>$850</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                        </tbody>
+                </table>
+                </fieldset>
+            </form>
+        </div>
+        <div class="opcion2">
+            <form>
+                <fieldset>
+                    <legend>Estado de cuenta</legend>
+                    <br>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Hospedaje</th>
+                                <th>Precio($UY)</th>
+                                <th>Estado</th>
+                                <th>Factura</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td>$2250</td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr>
+                                <td>La Casona</td>
+                                <td>$1200</td>
+                                <td>Pendiente</td>
+                                <td><input type="button" id="Factura" value="Ver"></td>
+                            </tr>
+                            <tr>
+                                <td>La Redención</td>
+                                <td>$850</td>
+                                <td>Pago</td>
+                                <td><input type="button" id="Factura" value="Ver"></td>
+                            </tr>
+                            <tr>
+                                <td>La Boca</td>
+                                <td>$1050</td>
+                                <td>Pendiente</td>
+                                <td><input type="button" id="Factura" value="Ver"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+                <!--
+        INICIO DE LOS CONTENEDORES DE LA OPCION 3 (USUARIO SIN REGISTRAR)
+        ESTOS SE MOSTRARAN PARA LOS USUARIOS SIN REGISTRAR.
+        -->
+        <div class="opcion3">
+                <form>
+                    <fieldset>
+                        <legend>Solicitar Usuario</legend>
+                        <p>
+                            Nombre:<input type="text" id="txtNombreUsuario"/>
+                        </p>
+                        <p>
+                            Email :<input type="text" id="txtCorreousuario"/>
+                        </p>
+                        <p>
+                            Contraseña: <input type="password" name="pass" pattern="[A-Za-z0-9]{1,8}" id="txtContraseña"/><img src="img/help.png" title="//contraseña con numeros y letras" class="help">
+                        </p>
+                        <p>
+                            Repita contraseña: <input type="password" name="pass" pattern="[A-Za-z0-9]{1,8}" id="txtContraseña2"/>
+                        </p>
+                        <p>
+                            <br>
+                             <input type="button" id="btnAltaUsuario" value="Enviar" />
+                        </p>
+                        <br>
+                        <div id="respSolicitudUsuario"></div>
+                    </fieldset>
+                </form>
+            </div>
+        <div class="opcion3">
+            <form>
+                <fieldset>
+                    <legend>Ofertas más vendidas</legend>
+                    <br>
+                    <table>
+                            <tbody><tr>
+                                <th class="lista"></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                                <th>Fin validez</th>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Celeste</td>
+                                <td>Colonia</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$1200</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr>
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Casona</td>
+                                <td>Rocha</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hostel</td>
+                                <td>$800</td>
+                                <td>2</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>El fugaz</td>
+                                <td>Salto</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$750</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>El Patio</td>
+                                <td>San josé</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$450</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>El Galpon</td>
+                                <td>Durazno</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$350</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
+        <div class="opcion3">
+            <fieldset>
+                <legend>Más OFertas!</legend>
+                <br>
+                <table>
+                            <tbody><tr>
+                                <th class="lista"></th>
+                                <th>Id oferta</th>
+                                <th>Hospedaje</th>
+                                <th>Ubicación</th>
+                                <th>Foto</th>
+                                <th>Tipo</th>
+                                <th>Precio</th>
+                                <th>Reservas</th>
+                                <th>Fin validez</th>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Boca</td>
+                                <td>Florida</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Apartamento</td>
+                                <td>$1200</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr>
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La Redención</td>
+                                <td>Punta del Este</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$800</td>
+                                <td>2</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                            <tr class="par">
+                                <th class="user"></th>
+                                <td>AutoId</td>
+                                <td>La proa</td>
+                                <td>Mercedes</td>
+                                <td><img src="imagenes/colonia.jpg"></td>
+                                <td>Hotel</td>
+                                <td>$750</td>
+                                <td>Ninguna</td>
+                                <td><input type="date" id="dateOferta"></td>
+                            </tr>
+                        </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </body>
+</html>
