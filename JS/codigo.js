@@ -95,7 +95,7 @@ function registroUsuarios(){
         estados = tmpUsuario["Estado"];
         listado = listado + "<td>" + estados + "</td>";
         listado = listado + "<td>" + tmpUsuario["Correo"] + "</td>";
-        listado = listado + "<td>" + "<input type='button' value='Editar'" +  + "</td>";
+        listado = listado + "<td>" + "<input type='button' value='Editar' id='" + tmpUsuario["Nombre"] + "'>" + "</td>";
         listado = listado + "</tr>";
     }
     $("#solicitudRegistro").html(listado);
