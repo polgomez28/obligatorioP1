@@ -6,8 +6,6 @@ function iniciar(){
     $("#btnCrearOferta").click(cargarOfertas); // (PRONTA) llama a funcion que valida oferta y la da de alta en array ofertas
     $("#hosTipo").html(cargoTiposHospedajes());
     $("#btnSolicitudRegistro").click(registroUsuarios);
-    
-    //$(".contenedor").hide();
 }
 /* Definimos las variables globales 
  * y los arrays globales.
@@ -90,13 +88,24 @@ function registroUsuarios(){
     var pos;
     for (pos = 0; pos <= usuarios.length-1; pos++) {
         tmpUsuario = usuarios[pos];
-        listado = listado + "<tr>";
-        listado = listado + "<td>" + tmpUsuario["Nombre"] + "</td>";
-        estados = tmpUsuario["Estado"];
-        listado = listado + "<td>" + estados + "</td>";
-        listado = listado + "<td>" + tmpUsuario["Correo"] + "</td>";
-        listado = listado + "<td>" + "<input type='button' value='Editar' id='" + tmpUsuario["Nombre"] + "'>" + "</td>";
-        listado = listado + "</tr>";
+        if (tmpUsuario["Estado"] === "Pendiente") {
+            listado = listado + "<tr>";
+            listado = listado + "<td>" + tmpUsuario["Nombre"] + "</td>";
+            estados = tmpUsuario["Estado"];
+            listado = listado + "<td>" + estados + "</td>";
+            listado = listado + "<td>" + tmpUsuario["Correo"] + "</td>";
+            listado = listado + "<td>" + "<input type='button' value='Habilitar' id='" + tmpUsuario["Nombre"] + "'>" + "</td>";
+            listado = listado + "</tr>";
+        }else {
+            listado = listado + "<tr>";
+            listado = listado + "<td>" + tmpUsuario["Nombre"] + "</td>";
+            estados = tmpUsuario["Estado"];
+            listado = listado + "<td>" + estados + "</td>";
+            listado = listado + "<td>" + tmpUsuario["Correo"] + "</td>";
+            listado = listado + "<td>" + "Activo" + "</td>";
+            listado = listado + "</tr>";
+        }
+
     }
     $("#solicitudRegistro").html(listado);
 }
