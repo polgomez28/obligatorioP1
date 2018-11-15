@@ -7,6 +7,7 @@ function inicializar(){
     $(".opcion1").hide();
     $(".opcion2").hide();
     $(".opcion3").hide();
+    $(".btnlogin").click(login);
 }
 function mostrarUno(){
     $(".opcion1").show();
@@ -27,4 +28,11 @@ function ocultarTodo(){
     $(".opcion2").hide();
     $(".opcion1").hide();
     $(".opcion3").hide();
+    $(".login").hide();
+}
+function login(){
+    $(".opcion2").hide();
+    $(".opcion1").hide();
+    $(".opcion3").hide();
+    $(".login").show();
 }

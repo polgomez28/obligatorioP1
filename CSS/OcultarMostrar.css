@@ -22,6 +22,9 @@ Estilos para ocultar las clases poción1 y opción2
 .opcion2{
     display: none;
 }
+.login{
+    display: none;
+}
 /*
 Estilos para dar formato a clases del html
 */

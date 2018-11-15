@@ -6,6 +6,7 @@ function iniciar(){
     $("#btnCrearOferta").click(cargarOfertas); // (PRONTA) llama a funcion que valida oferta y la da de alta en array ofertas
     $("#hosTipo").html(cargoTiposHospedajes());
     $("#btnSolicitudRegistro").click(registroUsuarios);
+    $("#btnLogin").click(loginVal);
 }
 /* Definimos las variables globales 
  * y los arrays globales.
@@ -25,7 +26,32 @@ var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":2, "nombre":"Hostel"},
                   {"tipo":3, "nombre":"Casa"},
                   {"tipo":4, "nombre":"Apartamento"}];
+var passLogin;
+var usuarioLogin;
+var userOK;
+var tipoUser;
+function loginVal(){
+    var tipo = "usuario";
+    //var tmp = {};
+    usuarioLogin = $("#txtUser").val();
+    passLogin = $("#txtPassword").val();
+    userOK = buscar(usuarioLogin, tipo);
+    if (userOK) {
+        
+        //$("#usuarioLogeado").html("Bienvenido " + usuarioLogin + "!");
+        
+        for (var i = 0; i <= usuarios.length-1; i++) {
+            tmp = usuarios[i];
+            if (tmp["Nombre"] === usuarioLogin && tmp["Clave"] === passLogin) {
+                tipoUser = tmp["Rol"];
+                $("#usuarioLogeado").html("Bienvenido " + usuarioLogin + "! " + tipoUser);
+            }
+        }
+}else {
+        alert("Error, contraseña incorrecta :´(");
+    }
 
+}
 //Funcion para autonumerado de ID en ofertas o reservas
 function autoId(tipo){
     var tmp;
@@ -84,11 +110,13 @@ function generadorId(max){
     }
 }
 function registroUsuarios(){
-    var listado = "", tmpUsuario = {}, estados;
+    var listado = "", tmpUsuario = {}, idUsuario = {},tmp = {}, estados;
     var pos;
     for (pos = 0; pos <= usuarios.length-1; pos++) {
         tmpUsuario = usuarios[pos];
         if (tmpUsuario["Estado"] === "Pendiente") {
+            tmp = tmpUsuario["Nombre"];
+            idUsuario["Nombre"] = tmp;
             listado = listado + "<tr>";
             listado = listado + "<td>" + tmpUsuario["Nombre"] + "</td>";
             estados = tmpUsuario["Estado"];
@@ -173,25 +201,36 @@ function cargarOfertas(){
 
     }
 }
-function buscar(nombre, tipo){
+function buscar(nombre, tipo) {
     var tmp;
     var existe = false;
+    var loginUser;
+    //En el if validamos que exista oferta segun variable tipo recibida
+    // y en el else validamos usuarios por if anidado segun variable tipo tambien.
     if (tipo === "oferta") {
-        for (pos = 0; pos <= ofertas.length-1; pos++) {
-        tmp = ofertas[pos];
-        if (tmp["Nombre"] === nombre) {
-            existe = true;
+        for (pos = 0; pos <= ofertas.length - 1; pos++) {
+            tmp = ofertas[pos];
+            if (tmp["Nombre"] === nombre) {
+                existe = true;
+            }
         }
-    }
-    }else {
+        return existe;
+    } else {
         if (tipo === "usuario") {
-            for (pos = 0; pos <= usuarios.length-1; pos++) {
-        tmp = usuarios[pos];
-        if (tmp["Nombre"] === nombre) {
-            existe = true;
+            for (pos = 0; pos <= usuarios.length - 1; pos++) {
+                tmp = usuarios[pos];
+                if (tmp["Nombre"] === nombre) {
+                    loginUser = true;
+                /*    
+                    if (tmp["Clave"] === passLogin) {
+                        loginUser = true;
+                    } else {
+                        loginUser = false;
+                    }
+                */
+                }
+            }
         }
+        return loginUser;
     }
-        }
-    }
-    return existe;
 }
