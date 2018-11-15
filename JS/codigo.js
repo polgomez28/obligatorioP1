@@ -8,7 +8,7 @@ function iniciar(){
     $("#btnSolicitudRegistro").click(registroUsuarios);
     $("#btnLogin").click(loginVal);
 }
-/* Definimos las variables globales 
+/* Definimos las variables globales
  * y los arrays globales.
  */
 var usuarios = [{"Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28", "Estado":"Habilitado", "Rol":"administrador"}
@@ -16,12 +16,9 @@ var usuarios = [{"Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28",
             ,{"Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
             ,{"Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
 var reservas = [{}];
-var ofertas = [{"Id":1, "Nombre":"La posada", "Ubicacion":"Maldonado"
-        , "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"},
-    {"Id":2, "Nombre":"Las rosas", "Ubicacion":"Florida"
-        , "Tipo":"Hotel", "Precio":1200, "FinValidez":"20/02/2019"},
-    {"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno"
-        , "Tipo":"Hostel", "Precio":500, "FinValidez":"12/03/2019"}];
+var ofertas = [{"Id":1, "Nombre":"La posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"},
+               {"Id":2, "Nombre":"Las rosas", "Ubicacion":"Florida", "Foto":"hostel1.jpg", "Tipo":"Hotel", "Precio":1200, "FinValidez":"20/02/2019"},
+               {"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"12/03/2019"}];
 var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":2, "nombre":"Hostel"},
                   {"tipo":3, "nombre":"Casa"},
@@ -200,6 +197,39 @@ function cargarOfertas(){
         }
 
     }
+}
+function generoListadoOferta(){
+	var listado = "", tmpOferta = {};
+	var pos;
+	for(pos=0; pos<=ofertas.length-1; pos++){
+		tmpOferta = ofertas[pos];
+		listado = listado + "<tr>";
+		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
+		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
+		listado = listado + "<td>" + "<img src='/imagenes/" + tmpOferta["Imagen"] + "'/>" + "</td>";
+		listado = listado + "<td>" + tmpOferta["Tipo"] + "</td>";
+		listado = listado + "<td>" + tmpOferta["Precio"] + "</td>";
+		listado = listado + "<td>"  + tmpOferta["FechaVal"] + "</td>";
+		listado = listado + "</tr>";
+	}
+	$("#contenidoOfertas1").html(listado);
+	$("#contenidoOfertas2").html(listado);
+	$("#contenidoOfertas3").html(listado);
+}
+function generoListadoReservas() {
+    var listado = "", tmpReserva = {};
+    var pos;
+    for (pos = 0; pos <= reservas.length - 1; pos++) {
+        tmpReserva = reservas[pos];
+        listado = listado + "<tr>";
+        listado = listado + "<td>" + tmpReserva["Nombre"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["Tipo"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["Noches"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["Precio"] + "</td>";
+        listado = listado + "</tr>";
+    }
+    $("#contenidoReservas").html(listado);
+    $("#contenidoReservas2").html(listado);
 }
 function buscar(nombre, tipo) {
     var tmp;

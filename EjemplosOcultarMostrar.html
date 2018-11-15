@@ -45,13 +45,37 @@ and open the template in the editor.
                 
             </form>
         </div>
+        <div class="MostrarDatosUsuario">
+            <form>
+                <fieldset>
+                    <legend>Mis Datos</legend>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td style="font-size: 16px">Nombre</td>
+                                <td style="font-size: 16px">Email</td>
+                                <td style="font-size: 16px">Contraseña</td>
+                                <td style="font-size: 16px">Rol</td>
+                            </tr>
+                        </thead>
+                        <tbody id="listarMisDatos">
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
         <div class="opcion1" id="usuariosPen">
                 <form>
                     <fieldset>
                         <legend>Solicitud de Registros</legend>
                         <table>
                             <thead>
-                                <tr><td style="font-size: 16px"> Usuarios </td><td style="font-size: 16px"> Estados </td><td style="font-size: 16px"> Correo </td><td><input type="button" id="btnSolicitudRegistro" value="Listar"></td></tr>
+                                <tr>
+                                    <td style="font-size: 16px"> Usuarios </td>
+                                    <td style="font-size: 16px"> Estados </td>
+                                    <td style="font-size: 16px"> Correo </td>
+                                    <td><input type="button" id="btnSolicitudRegistro" value="Listar"></td>
+                                </tr>
                             </thead>
                             <tbody id="solicitudRegistro">
                             </tbody>
@@ -88,166 +112,110 @@ and open the template in the editor.
                 </form>
             </div>
         <div class="opcion1">
-                <form>
-                    <fieldset>
-                        <legend>Listado ofertas</legend>
-                        <table>
-                            <tbody><tr>
-                                <th class="lista"></th>
-                                <th>Id oferta</th>
-                                <th>Hospedaje</th>
-                                <th>Ubicación</th>
-                                <th>Foto</th>
-                                <th>Tipo</th>
-                                <th>Precio</th>
-                                <th>Reservas</th>
-                                <th>Habilitar</th>
-                                <th>Deshabilitar</th>
-                                <th>Destacar</th>
-                            </tr>
-                                <td>AutoId</td>
-                                <td>La Celeste</td>
-                                <td>Colonia</td>
-                                <td><img src="imagenes/colonia.jpg"></td>
-                                <td>Hotel</td>
-                                <td>$1200</td>
-                                <td>Ninguna</td>
-                                <td><input type="checkbox" class="check"></td>
-                                <td><input type="checkbox" class="check"></td>
-                                <td><input type="checkbox" class="check"></td>
-                            </tr>
+            <form>
+                <fieldset>
+                    <legend>Listado ofertas</legend>
+                    <table>
+                        <thead>
                             <tr>
-                                <td>AutoId</td>
-                                <td>La Casona</td>
-                                <td>Rocha</td>
-                                <td><img src="imagenes/colonia.jpg"></td>
-                                <td>Hostel</td>
-                                <td>$800</td>
-                                <td>2</td>
-                                <td><input type="checkbox" class="check"></td>
-                                <td><input type="checkbox" class="check"></td>
-                                <td><input type="checkbox" class="check"></td>
+                                <td style="font-size: 16px"> Id </td>
+                                <td style="font-size: 16px"> Hospedaje </td>
+                                <td style="font-size: 16px"> Ubicación </td>
+                                <td style="font-size: 16px"> Foto </td>
+                                <td style="font-size: 16px"> Tipo </td>
+                                <td style="font-size: 16px"> Precio </td>
+                                <td style="font-size: 16px"> Reserva </td>
                             </tr>
-                            <tr>
-                                <td>AutoId</td>
-                                <td>El fugaz</td>
-                                <td>Salto</td>
-                                <td><img src="imagenes/colonia.jpg"></td>
-                                <td>Apartamento</td>
-                                <td>$750</td>
-                                <td>Ninguna</td>
-                                <td><input type="checkbox" class="check"></td>
-                                <td><input type="checkbox" class="check"></td>
-                                <td><input type="checkbox" class="check"></td>
-                            </tr>
-                        </tbody></table>
-                    </fieldset>
-                </form>
-            </div>
+                        </thead>
+                        <tbody id="contenidoOfertas1">
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
+        </div>
         <div class="opcion1">
             <form>
                 <fieldset>
-                    <legend>Listado de reservas</legend>
-                    <br>
-                    <form>
-                        <fieldset>
-                            <legend>Confirmadas</legend>
-                            <br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Id oferta</th>
-                                        <th>Usuario</th>
-                                        <th>Noches</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td>471</td>
-                                    <td>Joaquin_e</td>
-                                    <td>3</td>
-                                    <td><input type="checkbox" class="CheckReservas"></td>
-                                </tbody>
-                                <tbody>
-                                    <td>84</td>
-                                    <td>Franco</td>
-                                    <td>4</td>
-                                    <td><input type="checkbox" class="CheckReservas"></td>
-                                </tbody>
-                                <tbody>
-                                    <td>324</td>
-                                    <td>Marito23</td>
-                                    <td>2</td>
-                                    <td><input type="checkbox" class="CheckReservas"></td>
-                                </tbody>
-                            </table>
-                        </fieldset>
-                    </form>
-                    <form>
-                        <fieldset>
-                            <legend>No confirmadas</legend>
-                            <br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Id oferta</th>
-                                        <th>Usuario</th>
-                                        <th>Noches</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td>41</td>
-                                    <td>Lorena2</td>
-                                    <td>3</td>
-                                    <td><input type="checkbox" class="CheckReservas"></td>
-                                </tbody>
-                                <tbody>
-                                    <td>24</td>
-                                    <td>JoseL</td>
-                                    <td>4</td>
-                                    <td><input type="checkbox" class="CheckReservas"></td>
-                                </tbody>
-                                <tbody>
-                                    <td>124</td>
-                                    <td>Celia_2</td>
-                                    <td>2</td>
-                                    <td><input type="checkbox" class="CheckReservas"></td>
-                                </tbody>
-                            </table>
-                        </fieldset>
-                    </form>
-                    <form>
-                        <fieldset>
-                            <legend>Denegadas</legend>
-                            <br>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Id oferta</th>
-                                        <th>Usuario</th>
-                                        <th>Noches</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td>451</td>
-                                    <td>Lorena23</td>
-                                    <td>3</td>
-                                    
-                                </tbody>
-                                <tbody>
-                                    <td>214</td>
-                                    <td>Charly_2</td>
-                                    <td>4</td>
-                                    
-                                </tbody>
-                                <tbody>
-                                    <td>124</td>
-                                    <td>SalvaTol</td>
-                                    <td>2</td>
-                                    
-                                </tbody>
-                            </table>
-                        </fieldset>
-                    </form>
+                    <legend>Listado reservas</legend>
+
+                    <fieldset>
+                        <legend>Confirmadas</legend>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td style="font-size: 16px"> Id </td>
+                                    <td style="font-size: 16px"> Hospedaje </td>
+                                    <td style="font-size: 16px"> Ubicación </td>
+                                    <td style="font-size: 16px"> Foto </td>
+                                    <td style="font-size: 16px"> Tipo </td>
+                                    <td style="font-size: 16px"> Precio </td>
+                                    <td style="font-size: 16px"> Reserva </td>
+                                </tr>
+                            </thead>
+                            <tbody id="listadoOfertasConf">
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>No confirmadas</legend>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td style="font-size: 16px"> Id </td>
+                                    <td style="font-size: 16px"> Hospedaje </td>
+                                    <td style="font-size: 16px"> Ubicación </td>
+                                    <td style="font-size: 16px"> Foto </td>
+                                    <td style="font-size: 16px"> Tipo </td>
+                                    <td style="font-size: 16px"> Precio </td>
+                                    <td style="font-size: 16px"> Reserva </td>
+                                </tr>
+                            </thead>
+                            <tbody id="listadoOfertasNoConf">
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Denegadas</legend>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td style="font-size: 16px"> Id </td>
+                                    <td style="font-size: 16px"> Hospedaje </td>
+                                    <td style="font-size: 16px"> Ubicación </td>
+                                    <td style="font-size: 16px"> Foto </td>
+                                    <td style="font-size: 16px"> Tipo </td>
+                                    <td style="font-size: 16px"> Precio </td>
+                                    <td style="font-size: 16px"> Reserva </td>
+                                </tr>
+                            </thead>
+                            <tbody id="listadoOfertasDen">
+                            </tbody>
+                        </table>
+                    </fieldset>
+
+                </fieldset>
+
+            </form>
+        </div>
+        <div class="opcion1">
+            <form>
+                <fieldset>
+                    <legend>Listado Reservas</legend>
+                    <table>
+                        <tr>
+                            <th>Hospedaje</th>
+                            <th>Tipo</th>
+                            <th>Noches</th>
+                            <th>Precio Por Noche</th>
+                            <th>Habilitar</th>
+                            <th>Deshabilitar</th>
+                            <th>Destacar</th>
+                        </tr>
+                        <tbody id="contenidoReservas">
+                        </tbody>
+                    </table>
                 </fieldset>
             </form>
         </div>
@@ -275,45 +243,41 @@ and open the template in the editor.
             </form>
         </div>
         <div class="opcion2">
-            <fieldset>
-                <legend>Más OFertas!</legend>
-                <br>
-                <table>
-                            <tbody><tr>
-                                <th></th>
-                                <th>Id oferta</th>
-                                <th>Hospedaje</th>
-                                <th>Ubicación</th>
-                                <th>Foto</th>
-                                <th>Tipo</th>
-                                <th>Precio</th>
-                                <th>Reservas</th>
-                                <th>Fin validez</th>
-                            </tr>
+            <form>
+                <fieldset>
+                    <legend>Más ofertas!</legend>
+                    <table>
+                        <thead>
                             <tr>
-                                <td id="masOfertas"></td>
+                                <td style="font-size: 16px"> Id </td>
+                                <td style="font-size: 16px"> Hospedaje </td>
+                                <td style="font-size: 16px"> Ubicación </td>
+                                <td style="font-size: 16px"> Foto </td>
+                                <td style="font-size: 16px"> Tipo </td>
+                                <td style="font-size: 16px"> Precio </td>
+                                <td style="font-size: 16px"> Reserva </td>
                             </tr>
-                            <tr>
-                                <th></th>
-                                
-                            </tr>
-                            <tr>
-                                <th></th>
-                                
-                            </tr>
+                        </thead>
+                        <tbody class="contenidoOfertas2">
                         </tbody>
-                </table>
-                <input type="button" id="btnMostrarOfertas" value="Mostrar">
-            </fieldset>
+                    </table>
+                </fieldset>
+            </form>
         </div>
         <div class="opcion2">
             <form>
                 <fieldset>
-                    <legend>Mis reservas</legend>
-                    <br>
+                    <legend>Mis Reservas</legend>
                     <table>
-                            
-                </table>
+                        <tr>
+                            <th>Hospedaje</th>
+                            <th>Tipo</th>
+                            <th>Noches</th>
+                            <th>Precio Por Noche</th>
+                        </tr>
+                        <tbody id="contenidoReservas2">
+                        </tbody>
+                    </table>
                 </fieldset>
             </form>
         </div>
@@ -321,23 +285,17 @@ and open the template in the editor.
             <form>
                 <fieldset>
                     <legend>Estado de cuenta</legend>
-                    <br>
                     <table>
                         <thead>
                             <tr>
-                                <th>Hospedaje</th>
-                                <th>Precio($UY)</th>
-                                <th>Estado</th>
-                                <th>Factura</th>
+                                <td style="font-size: 16px">Hospedaje</td>
+                                <td style="font-size: 16px">Precio($UY)</td>
+                                <td style="font-size: 16px">Estado</td>
+                                <td style="font-size: 16px">Factura</td>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <td>Total</td>
-                                <td>$2250</td>
-                            </tr>
-                        </tfoot>
-                        
+                        <tbody id="estadoCuenta">
+                        </tbody>
                     </table>
                 </fieldset>
             </form>
@@ -375,21 +333,45 @@ and open the template in the editor.
             <form>
                 <fieldset>
                     <legend>Ofertas más vendidas</legend>
-                    <br>
                     <table>
-                            
+                        <thead>
+                            <tr>
+                                <td style="font-size: 16px"> Id </td>
+                                <td style="font-size: 16px"> Hospedaje </td>
+                                <td style="font-size: 16px"> Ubicación </td>
+                                <td style="font-size: 16px"> Foto </td>
+                                <td style="font-size: 16px"> Tipo </td>
+                                <td style="font-size: 16px"> Precio </td>
+                                <td style="font-size: 16px"> Reserva </td>
+                            </tr>
+                        </thead>
+                        <tbody id="listadoOfertasMasVendidas">
+                        </tbody>
                     </table>
                 </fieldset>
             </form>
         </div>
         <div class="opcion3">
-            <fieldset>
-                <legend>Más OFertas!</legend>
-                <br>
-                <table>
-                            
-                </table>
-            </fieldset>
+            <form>
+                <fieldset>
+                    <legend>Más ofertas!</legend>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td style="font-size: 16px"> Id </td>
+                                <td style="font-size: 16px"> Hospedaje </td>
+                                <td style="font-size: 16px"> Ubicación </td>
+                                <td style="font-size: 16px"> Foto </td>
+                                <td style="font-size: 16px"> Tipo </td>
+                                <td style="font-size: 16px"> Precio </td>
+                                <td style="font-size: 16px"> Reserva </td>
+                            </tr>
+                        </thead>
+                        <tbody class="contenidoOfertas3">
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
         </div>
     </body>
 </html>
