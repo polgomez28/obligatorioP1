@@ -1,5 +1,20 @@
 $(document).ready(iniciar);
 function iniciar(){
+    //Inicia llamas para ocultar mostrar.
+    $(".opcionUno").click(mostrarUno);
+    $(".opcionDos").click(mostrarDos);
+    $(".opcionTres").click(mostrarTres); // Cargar con usuario sin registrar
+    //mostrarTres();
+    $(".btnMenu").click(ocultarTodo);
+    $(".opcion1").hide();
+    $(".opcion2").hide();
+    $(".opcion3").hide();
+    $(".btnlogin").click(login);
+    $("#btnMisDatos").click(mostrarDatosUsuario);
+    $("#btnVolver").click(volverAUsuario);
+    $(".MostrarDatosUsuario").hide();
+    //termina llamadas a ocultarMostrar
+    
     $("#logIn").click(mostrarLogin);
     $("#mostrar").click(mostrarTodo);
     $("#btnAltaUsuario").click(validarUsuario);
@@ -7,26 +22,31 @@ function iniciar(){
     $("#hosTipo").html(cargoTiposHospedajes());
     $("#btnSolicitudRegistro").click(registroUsuarios);
     $("#btnLogin").click(loginVal);
+    generoListadoOferta();
+    generoListadoReservas();
+    
 }
 /* Definimos las variables globales
  * y los arrays globales.
  */
+function prueba(){
+    alert("Ok");
+}
 var usuarios = [{"Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28", "Estado":"Habilitado", "Rol":"administrador"}
             ,{"Nombre":"Necuse", "Correo":"necuse@gmail.com", "Clave":"necuse", "Estado":"Pendiente", "Rol":"administrador"}
             ,{"Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
             ,{"Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
-var reservas = [{}];
-var ofertas = [{"Id":1, "Nombre":"La posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"},
-               {"Id":2, "Nombre":"Las rosas", "Ubicacion":"Florida", "Foto":"hostel1.jpg", "Tipo":"Hotel", "Precio":1200, "FinValidez":"20/02/2019"},
+var reservas = [{}], favoritos = [{"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"12/03/2019"}];
+var ofertas = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"},
+               {"Id":2, "Nombre":"Las Rosas", "Ubicacion":"Florida", "Foto":"hostel1.jpg", "Tipo":"Hotel", "Precio":1200, "FinValidez":"20/02/2019"},
                {"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"12/03/2019"}];
 var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":2, "nombre":"Hostel"},
                   {"tipo":3, "nombre":"Casa"},
                   {"tipo":4, "nombre":"Apartamento"}];
-var passLogin;
-var usuarioLogin;
-var userOK;
-var tipoUser;
+
+var passLogin, usuarioLogin, userOK, tipoUser, ids = {}, tmpOferta = {}, tmp = "", favorito = {};
+
 function loginVal(){
     var tipo = "usuario";
     //var tmp = {};
@@ -51,7 +71,7 @@ function loginVal(){
 }
 //Funcion para autonumerado de ID en ofertas o reservas
 function autoId(tipo){
-    var tmp;
+    var tmp ;
     var nuevoId = 0;
     if (tipo === "oferta") {
         for (pos = 0; pos <= ofertas.length-1; pos++) {
@@ -69,6 +89,14 @@ function autoId(tipo){
         }
     }
         }
+    }
+    if (tipo === "Favorito") {
+          for (pos = 0; pos <= favoritos.length-1; pos++) {
+        tmp = favoritos[pos];
+        if (tmp["Id"] > parseInt(nuevoId)) {
+            nuevoId = tmp["Id"];
+        }
+    }
     }
     nuevoId = (nuevoId + 1);
     return nuevoId;
@@ -99,12 +127,6 @@ function validarUsuario() {
         $("#respSolicitudUsuario").html("Error, la contraseña no coincide");
     }
 
-}
-//
-function generadorId(max){
-    for (var i = 1; i <= max; i++) {
-        
-    }
 }
 function registroUsuarios(){
     var listado = "", tmpUsuario = {}, idUsuario = {},tmp = {}, estados;
@@ -146,22 +168,6 @@ function cargoTiposHospedajes(){
 	}
 	return opciones;
 }
-
-//funciones para ocultar y mostrar contenedores
-function mostrarLogin(){
-    $("#contenedorOfertas").hide();
-    $("#crearOfertas").hide();
-    $("#crearUsuario").hide();
-    $("#listadoOfertas").hide();
-    $(".login-box").show();
-}
-function mostrarTodo(){
-    $("#contenedorOfertas").show();
-    $("#crearOfertas").show();
-    $("#crearUsuario").show();
-    $("#listadoOfertas").show();
-    $(".login-box").hide();
-}
 //Funciones que valida que no exista oferta a dar de alta y la agrega al array ofertas
 function cargarOfertas(){
     var tipo = "oferta";
@@ -198,23 +204,74 @@ function cargarOfertas(){
 
     }
 }
+ function calculoVentas(){
+	var tipo = $(this).val(); //idem a $("#selGuitarra")....
+	if(tipo!==""){
+		$("#totalVenta").html(totalVentas(tipo));
+	}
+	else{
+		$("#totalVenta").html(0);
+	}
+}
 function generoListadoOferta(){
-	var listado = "", tmpOferta = {};
-	var pos;
+	var listado = "", pos;
+	
 	for(pos=0; pos<=ofertas.length-1; pos++){
 		tmpOferta = ofertas[pos];
+                tmp = tmpOferta["Id"];
 		listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
-		listado = listado + "<td>" + "<img src='/imagenes/" + tmpOferta["Imagen"] + "'/>" + "</td>";
+		listado = listado + "<td>" + "<img src='/imagenes/" + tmpOferta["Foto"] + "'/>" + "</td>";
 		listado = listado + "<td>" + tmpOferta["Tipo"] + "</td>";
 		listado = listado + "<td>" + tmpOferta["Precio"] + "</td>";
-		listado = listado + "<td>"  + tmpOferta["FechaVal"] + "</td>";
+		listado = listado + "<td>"  + tmpOferta["FinValidez"] + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Reservar' id='reserva" + tmpOferta["Id"] + "'>" + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Favorito'  onclick='addFavoritos(" + tmp + ")'" + " id='btn" + tmpOferta["Id"] +  "'>" + "</td>";
 		listado = listado + "</tr>";
 	}
-	$("#contenidoOfertas1").html(listado);
-	$("#contenidoOfertas2").html(listado);
 	$("#contenidoOfertas3").html(listado);
+}
+function addFavoritos(idboton){
+    var tipo = "Favorito", idTmp;
+    $("#btn" + idboton).attr("disabled", true);
+    existe = buscar(idboton,tipo);
+    if (!existe) {
+        for (var pos = 0; pos <= ofertas.length-1; pos++) {
+            tmp = ofertas[pos];
+            if (tmp["Id"] === idboton) {
+            idTmp = autoId(tipo);
+            favorito["Id"] = idTmp;
+            favorito["IdOferta"] = tmp["Id"];
+            favorito["Nombre"] = tmp["Nombre"];
+            favorito["Ubicacion"] = tmp["Ubicacion"];
+            favorito["Foto"] = tmp["Foto"];
+            favorito["Tipo"] = tmp["Tipo"];
+            favorito["Precio"] = tmp["Precio"];
+            favorito["FinValidez"] = tmp["FinValidez"];
+            favoritos[favoritos.length] = favorito;
+            
+        }
+    }
+    listaFavoritos();
+    }
+    
+}
+function listaFavoritos(){
+    var listado = "", tmpFavoritos = {};
+    for(pos=0; pos<=favoritos.length-1; pos++){
+		tmpFavoritos = favoritos[pos];
+		listado = listado + "<tr>";
+		listado = listado + "<td>" + tmpFavoritos["Nombre"] + "</td>";
+		listado = listado + "<td>"  + tmpFavoritos["Ubicacion"] + "</td>";
+		listado = listado + "<td>" + "<img src='/imagenes/" + tmpFavoritos["Foto"] + "'/>" + "</td>";
+		listado = listado + "<td>" + tmpFavoritos["Tipo"] + "</td>";
+		listado = listado + "<td>" + tmpFavoritos["Precio"] + "</td>";
+		listado = listado + "<td>"  + tmpFavoritos["FinValidez"] + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Reservar' id='reservaFav" + tmpFavoritos["Id"] + "'>" + "</td>";
+		listado = listado + "</tr>";
+	}
+        $("#contenidoFavoritos").html(listado);
 }
 function generoListadoReservas() {
     var listado = "", tmpReserva = {};
@@ -243,24 +300,91 @@ function buscar(nombre, tipo) {
             if (tmp["Nombre"] === nombre) {
                 existe = true;
             }
+            if (tmp["Id"] === nombre) {
+                existe = true;
+            }
         }
         return existe;
     } else {
+        if (tipo === "Favorito") {
+            for (pos = 0; pos <= favoritos.length - 1; pos++) {
+                tmp = favoritos[pos];
+                if (tmp["IdOferta"] === nombre) {
+                    existe = true;
+                }
+            }
+            return existe;
+        }
         if (tipo === "usuario") {
             for (pos = 0; pos <= usuarios.length - 1; pos++) {
                 tmp = usuarios[pos];
                 if (tmp["Nombre"] === nombre) {
                     loginUser = true;
-                /*    
-                    if (tmp["Clave"] === passLogin) {
-                        loginUser = true;
-                    } else {
-                        loginUser = false;
-                    }
-                */
                 }
             }
+            return loginUser;
         }
-        return loginUser;
     }
+}
+
+/*
+ * funciones para ocultar y mostrar contenedores
+ */
+
+function mostrarUno(){
+    $(".opcion1").show();
+    $(".opcion2").hide();
+    $(".opcion3").hide();
+    $(".MostrarDatosUsuario").hide();
+}
+function mostrarDos(){
+    $(".opcion2").show();
+    $(".opcion1").hide();
+    $(".opcion3").hide();
+}
+function volverAUsuario() {
+  $(".opcion1").hide();
+  $(".opcion2").show();
+  $(".opcion3").hide();
+  $(".MostrarDatosUsuario").hide();
+}
+function mostrarDatosUsuario() {
+  $(".opcion1").hide();
+  $(".opcion2").hide();
+  $(".opcion3").hide();
+  $(".MostrarDatosUsuario").show();
+}
+function mostrarTres(){
+    $(".opcion2").hide();
+    $(".opcion1").hide();
+    $(".opcion3").show();
+    $(".MostrarDatosUsuario").hide();
+}
+function ocultarTodo(){
+    $(".opcion2").hide();
+    $(".opcion1").hide();
+    $(".opcion3").hide();
+    $(".login").hide();
+    $(".MostrarDatosUsuario").hide();
+}
+function login(){
+    $(".opcion2").hide();
+    $(".opcion1").hide();
+    $(".opcion3").hide();
+    $(".login").show();
+    $(".MostrarDatosUsuario").hide();
+}
+function mostrarLogin(){
+    $("#contenedorOfertas").hide();
+    $("#crearOfertas").hide();
+    $("#crearUsuario").hide();
+    $("#listadoOfertas").hide();
+    $(".login-box").show();
+}
+function mostrarTodo(){
+    $("#contenedorOfertas").show();
+    $("#crearOfertas").show();
+    $("#crearUsuario").show();
+    $("#listadoOfertas").show();
+    $(".login-box").hide();
 }

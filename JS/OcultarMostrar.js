@@ -2,7 +2,7 @@ $(document).ready(inicializar);
 function inicializar(){
     $(".opcionUno").click(mostrarUno);
     $(".opcionDos").click(mostrarDos);
-    $(".opcionTres").click(mostrarTres);
+    $(".opcionTres").click(mostrarTres); // Cargar con usuario sin registrar
     $(".btnMenu").click(ocultarTodo);
     $(".opcion1").hide();
     $(".opcion2").hide();
