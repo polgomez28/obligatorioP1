@@ -24,6 +24,7 @@ function iniciar(){
     $("#btnLogin").click(loginVal);
     generoListadoOferta();
     generoListadoReservas();
+    listaFavoritos();
     
 }
 /* Definimos las variables globales
@@ -36,10 +37,15 @@ var usuarios = [{"Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28",
             ,{"Nombre":"Necuse", "Correo":"necuse@gmail.com", "Clave":"necuse", "Estado":"Pendiente", "Rol":"administrador"}
             ,{"Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
             ,{"Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
-var reservas = [{}], favoritos = [{"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"12/03/2019"}];
+
+var reservas = [{}];
+
+var favoritos = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"}];
+
 var ofertas = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"},
                {"Id":2, "Nombre":"Las Rosas", "Ubicacion":"Florida", "Foto":"hostel1.jpg", "Tipo":"Hotel", "Precio":1200, "FinValidez":"20/02/2019"},
                {"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"12/03/2019"}];
+
 var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":2, "nombre":"Hostel"},
                   {"tipo":3, "nombre":"Casa"},
@@ -218,7 +224,6 @@ function cargarOfertas(){
 }
 function generoListadoOferta(){
 	var listado = "", pos;
-	
 	for(pos=0; pos<=ofertas.length-1; pos++){
 		tmpOferta = ofertas[pos];
                 tmp = tmpOferta["Id"];
@@ -235,36 +240,32 @@ function generoListadoOferta(){
 	}
 	$("#contenidoOfertas3").html(listado);
 }
-function addFavoritos(idboton){
-    var tipo = "Favorito", idTmp;
+function addFavoritos(idboton) {
     $("#btn" + idboton).attr("disabled", true);
+    var salir = false, indice = 0, tmp = {}, existe, tipo = "Favorito";
     existe = buscar(idboton,tipo);
-    if (!existe) {
-        for (var pos = 0; pos <= ofertas.length-1; pos++) {
-            tmp = ofertas[pos];
-            if (tmp["Id"] === idboton) {
-            idTmp = autoId(tipo);
-            favorito["Id"] = idTmp;
-            favorito["IdOferta"] = tmp["Id"];
-            favorito["Nombre"] = tmp["Nombre"];
-            favorito["Ubicacion"] = tmp["Ubicacion"];
-            favorito["Foto"] = tmp["Foto"];
-            favorito["Tipo"] = tmp["Tipo"];
-            favorito["Precio"] = tmp["Precio"];
-            favorito["FinValidez"] = tmp["FinValidez"];
-            favoritos[favoritos.length] = favorito;
-            
+    if(!existe){
+        while (!salir && indice <= ofertas.length - 1) {
+        tmp = ofertas[indice];
+        if (tmp["Id"] === idboton) {
+            salir = true;
+        } else {
+            indice++;
         }
     }
-    listaFavoritos();
+    if (salir) {
+        favoritos[favoritos.length] = tmp;
+        listaFavoritos();
     }
-    
+    }else {
+        alert("La oferta ya existe en favoritos");
+    }
 }
 function listaFavoritos(){
     var listado = "", tmpFavoritos = {};
     for(pos=0; pos<=favoritos.length-1; pos++){
 		tmpFavoritos = favoritos[pos];
-		listado = listado + "<tr>";
+                listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpFavoritos["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpFavoritos["Ubicacion"] + "</td>";
 		listado = listado + "<td>" + "<img src='imagenes/" + tmpFavoritos["Foto"] + "'/>" + "</td>";
@@ -273,6 +274,7 @@ function listaFavoritos(){
 		listado = listado + "<td>"  + tmpFavoritos["FinValidez"] + "</td>";
                 listado = listado + "<td>" + "<input type='button' value='Reservar' id='reservaFav" + tmpFavoritos["Id"] + "'>" + "</td>";
 		listado = listado + "</tr>";
+        
 	}
         $("#contenidoFavoritos").html(listado);
 }
@@ -289,7 +291,7 @@ function generoListadoReservas() {
         listado = listado + "</tr>";
     }
     $("#contenidoReservas").html(listado);
-    $("#contenidoReservas2").html(listado);
+    //$("#contenidoReservas2").html(listado);
 }
 function buscar(nombre, tipo) {
     var tmp;
@@ -312,7 +314,7 @@ function buscar(nombre, tipo) {
         if (tipo === "Favorito") {
             for (pos = 0; pos <= favoritos.length - 1; pos++) {
                 tmp = favoritos[pos];
-                if (tmp["IdOferta"] === nombre) {
+                if (tmp["Id"] === nombre) {
                     existe = true;
                 }
             }
