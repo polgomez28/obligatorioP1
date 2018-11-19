@@ -45,7 +45,7 @@ var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":3, "nombre":"Casa"},
                   {"tipo":4, "nombre":"Apartamento"}];
 
-var passLogin, usuarioLogin, userOK, tipoUser, ids = {}, tmpOferta = {}, tmp = "", favorito = {};
+var passLogin, usuarioLogin, userOK, tipoUser, ids = {}, tmpOferta = {}, tmp = "", favorito = {}, fotosDir = "imagenes/";
 
 function loginVal(){
     var tipo = "usuario";
@@ -179,6 +179,8 @@ function cargarOfertas(){
     var tipoHosp = $("#hosTipo").val();
     var precioOferta = parseInt($("#txtPrecio").val());
     var fechaVal = $("#fechaValidez").val();
+    var foto = $("#txtFoto").val();
+    var nombreFoto = foto.substr(12);
     if (!isNaN(precioOferta)) {
         existe = buscar(nombreHosp,tipo);  //llamamos a funcion para ver si oferta ya existe
         if (!existe) {
@@ -190,6 +192,7 @@ function cargarOfertas(){
             tmpoferta["Tipo"] = tipoHosp;
             tmpoferta["Precio"] = precioOferta;
             tmpoferta["FinValidez"] = fechaVal;
+            tmpoferta["Foto"] = nombreFoto;
             ofertas[ofertas.length] = tmpoferta;    //Se da de alta oferta nueva en array
             $("#txtNombreHosp").val("");
             $("#txtUbicacion").val("");
@@ -222,7 +225,7 @@ function generoListadoOferta(){
 		listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
-		listado = listado + "<td>" + "<img src='/imagenes/" + tmpOferta["Foto"] + "'/>" + "</td>";
+		listado = listado + "<td>" + "<img src='imagenes/" + tmpOferta["Foto"] + "'/>" + "</td>";
 		listado = listado + "<td>" + tmpOferta["Tipo"] + "</td>";
 		listado = listado + "<td>" + tmpOferta["Precio"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["FinValidez"] + "</td>";
@@ -264,7 +267,7 @@ function listaFavoritos(){
 		listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpFavoritos["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpFavoritos["Ubicacion"] + "</td>";
-		listado = listado + "<td>" + "<img src='/imagenes/" + tmpFavoritos["Foto"] + "'/>" + "</td>";
+		listado = listado + "<td>" + "<img src='imagenes/" + tmpFavoritos["Foto"] + "'/>" + "</td>";
 		listado = listado + "<td>" + tmpFavoritos["Tipo"] + "</td>";
 		listado = listado + "<td>" + tmpFavoritos["Precio"] + "</td>";
 		listado = listado + "<td>"  + tmpFavoritos["FinValidez"] + "</td>";
