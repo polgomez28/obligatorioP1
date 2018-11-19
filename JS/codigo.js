@@ -20,11 +20,11 @@ function iniciar(){
     $("#btnAltaUsuario").click(validarUsuario);
     $("#btnCrearOferta").click(cargarOfertas); // (PRONTA) llama a funcion que valida oferta y la da de alta en array ofertas
     $("#hosTipo").html(cargoTiposHospedajes());
-    $("#btnSolicitudRegistro").click(registroUsuarios);
     $("#btnLogin").click(loginVal);
     generoListadoOferta();
     generoListadoReservas();
     listaFavoritos();
+    registroUsuarios();
     
 }
 /* Definimos las variables globales
@@ -33,10 +33,10 @@ function iniciar(){
 function prueba(){
     alert("Ok");
 }
-var usuarios = [{"Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28", "Estado":"Habilitado", "Rol":"administrador"}
-            ,{"Nombre":"Necuse", "Correo":"necuse@gmail.com", "Clave":"necuse", "Estado":"Pendiente", "Rol":"administrador"}
-            ,{"Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
-            ,{"Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
+var usuarios = [{"Id":1, "Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28", "Estado":"Habilitado", "Rol":"administrador"}
+                ,{"Id":2, "Nombre":"Necuse", "Correo":"necuse@gmail.com", "Clave":"necuse", "Estado":"Pendiente", "Rol":"administrador"}
+                ,{"Id":3, "Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
+                ,{"Id":4, "Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
 
 var reservas = [{}];
 
@@ -104,12 +104,20 @@ function autoId(tipo){
         }
     }
     }
+    if (tipo === "usuario") {
+        for (pos = 0; pos <= usuarios.length-1; pos++) {
+        tmp = usuarios[pos];
+        if (tmp["Id"] > parseInt(nuevoId)) {
+            nuevoId = tmp["Id"];
+        }
+    }
+    }
     nuevoId = (nuevoId + 1);
     return nuevoId;
 }
 // Función para validar contraseña y usuario
 function validarUsuario() {
-    var tmpUsuario = {};
+    var tmpUsuario = {}, nuevoId;
     login = false;
     var tipo = "usuario";
     var nombreUsuario = $("#txtNombreUsuario").val();
@@ -119,6 +127,8 @@ function validarUsuario() {
     if (contraseña === contraseñaVal) {
         login = buscar(nombreUsuario,tipo); // Llamada a funcion buscar para ver si ya existe usuario
         if (!login) {
+            nuevoId = autoId(tipo);
+            tmpUsuario["Id"] = nuevoId;
             tmpUsuario["Nombre"] = nombreUsuario;
             tmpUsuario["Correo"] = correoUsuario;
             tmpUsuario["Clave"] = contraseña;
@@ -135,19 +145,18 @@ function validarUsuario() {
 
 }
 function registroUsuarios(){
-    var listado = "", tmpUsuario = {}, idUsuario = {},tmp = {}, estados;
+    var listado = "", tmpUsuario = {}, idUsuario = {}, estados;
     var pos;
     for (pos = 0; pos <= usuarios.length-1; pos++) {
         tmpUsuario = usuarios[pos];
         if (tmpUsuario["Estado"] === "Pendiente") {
-            tmp = tmpUsuario["Nombre"];
-            idUsuario["Nombre"] = tmp;
+            idUsuario = tmpUsuario["Id"];
             listado = listado + "<tr>";
             listado = listado + "<td>" + tmpUsuario["Nombre"] + "</td>";
             estados = tmpUsuario["Estado"];
             listado = listado + "<td>" + estados + "</td>";
             listado = listado + "<td>" + tmpUsuario["Correo"] + "</td>";
-            listado = listado + "<td>" + "<input type='button' value='Habilitar' id='" + tmpUsuario["Nombre"] + "'>" + "</td>";
+            listado = listado + "<td>" + "<input type='button' value='Habilitar' onclick='habilitarUsuario(" + idUsuario + ")'" + " id='" + idUsuario + "'>" + "</td>";
             listado = listado + "</tr>";
         }else {
             listado = listado + "<tr>";
@@ -162,7 +171,23 @@ function registroUsuarios(){
     }
     $("#solicitudRegistro").html(listado);
 }
-
+function habilitarUsuario(idUser) {
+    salir = false;
+    indice = 0;
+    while (!salir && indice <= usuarios.length - 1) {
+        tmp = usuarios[indice];
+        if (tmp["Id"] === idUser) {
+            salir = true;
+        } else {
+            indice++;
+        }
+    }
+    if (salir) {
+        tmp["Estado"] = "Habilitado";
+        usuarios[indice] = tmp;
+        registroUsuarios();
+    }
+}
 //Función para cargar las combox de tipos hospedajes
 function cargoTiposHospedajes(){
     var pos;
@@ -340,12 +365,14 @@ function mostrarUno(){
     $(".opcion1").show();
     $(".opcion2").hide();
     $(".opcion3").hide();
+    $(".opcion3Oferta").show();
     $(".MostrarDatosUsuario").hide();
 }
 function mostrarDos(){
     $(".opcion2").show();
     $(".opcion1").hide();
     $(".opcion3").hide();
+    $(".opcion3Oferta").show();
 }
 function volverAUsuario() {
   $(".opcion1").hide();
@@ -363,6 +390,7 @@ function mostrarTres(){
     $(".opcion2").hide();
     $(".opcion1").hide();
     $(".opcion3").show();
+    $(".opcion3Oferta").show();
     $(".MostrarDatosUsuario").hide();
 }
 function ocultarTodo(){
@@ -370,6 +398,7 @@ function ocultarTodo(){
     $(".opcion1").hide();
     $(".opcion3").hide();
     $(".login").hide();
+    $(".opcion3Oferta").hide();
     $(".MostrarDatosUsuario").hide();
 }
 function login(){
@@ -377,6 +406,7 @@ function login(){
     $(".opcion1").hide();
     $(".opcion3").hide();
     $(".login").show();
+    $(".opcion3Oferta").hide();
     $(".MostrarDatosUsuario").hide();
 }
 function mostrarLogin(){
@@ -385,6 +415,7 @@ function mostrarLogin(){
     $("#crearUsuario").hide();
     $("#listadoOfertas").hide();
     $(".login-box").show();
+    $(".opcion3Oferta").hide();
 }
 function mostrarTodo(){
     $("#contenedorOfertas").show();
