@@ -22,10 +22,14 @@ Estilos para ocultar las clases poción1 y opción2
 .opcion2{
     display: none;
 }
+
+.MostrarDatosUsuario{
+    display: none;
+}
 .login{
     display: none;
 }
-.opcion3Oferta{
+.registrarme{
     display: none;
 }
 /*
@@ -37,12 +41,8 @@ Estilos para dar formato a clases del html
 /*
 Estilos para id del html
 */
-#usuariosPen{
-    display: inline-block;
-}
-#crearOferta{
-    display: inline-block;
-}
+
+
 #idOfertaForm{
     display: inline-block;
 }
@@ -56,5 +56,4 @@ td{
 }
 th{
     font-size: medium;
-    
 }

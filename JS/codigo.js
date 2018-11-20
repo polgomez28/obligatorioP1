@@ -1,21 +1,12 @@
 $(document).ready(iniciar);
 function iniciar(){
     //Inicia llamas para ocultar mostrar.
-    $(".opcionUno").click(mostrarUno);
-    $(".opcionDos").click(mostrarDos);
-    $(".opcionTres").click(mostrarTres); // Cargar con usuario sin registrar
-    //mostrarTres();
-    $(".btnMenu").click(ocultarTodo);
-    $(".opcion1").hide();
-    $(".opcion2").hide();
-    $(".opcion3").hide();
-    $(".btnlogin").click(login);
+    //PROVISORIO
+    $(".btnMenu").click(mostrarRegistrarme);
     $("#btnMisDatos").click(mostrarDatosUsuario);
     $("#btnVolver").click(volverAUsuario);
-    $(".MostrarDatosUsuario").hide();
-    //termina llamadas a ocultarMostrar
-    
-    $("#logIn").click(mostrarLogin);
+    $(".btnlogin").click(mostrarLogin); //muestra login desde menu -Ingresar
+    $("#btnVolverNoRegistrado").click(noRegistrado);
     $("#mostrar").click(mostrarTodo);
     $("#btnAltaUsuario").click(validarUsuario);
     $("#btnCrearOferta").click(cargarOfertas); // (PRONTA) llama a funcion que valida oferta y la da de alta en array ofertas
@@ -30,9 +21,6 @@ function iniciar(){
 /* Definimos las variables globales
  * y los arrays globales.
  */
-function prueba(){
-    alert("Ok");
-}
 var usuarios = [{"Id":1, "Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"polg28", "Estado":"Habilitado", "Rol":"administrador"}
                 ,{"Id":2, "Nombre":"Necuse", "Correo":"necuse@gmail.com", "Clave":"necuse", "Estado":"Pendiente", "Rol":"administrador"}
                 ,{"Id":3, "Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
@@ -68,6 +56,8 @@ function loginVal(){
             if (tmp["Nombre"] === usuarioLogin && tmp["Clave"] === passLogin) {
                 tipoUser = tmp["Rol"];
                 $("#usuarioLogeado").html("Bienvenido " + usuarioLogin + "! " + tipoUser);
+                login(usuarioLogin,tipoUser);
+                
             }
         }
 }else {
@@ -199,10 +189,20 @@ function cargoTiposHospedajes(){
 	}
 	return opciones;
 }
+/*
+ * 
+ * 
+ * function cargoImagen(){
+	var foto = $("#txtFoto").val();
+	var nombreFoto = foto.substr(12);
+	$("#imgFoto").attr("src",fotosDir + nombreFoto);
+}
+ */
+
 //Funciones que valida que no exista oferta a dar de alta y la agrega al array ofertas
 function cargarOfertas(){
     var tipo = "oferta";
-    var autoId;
+    var autoIdOK;
     var existe;
     var tmpoferta = {};
     var nombreHosp = $("#txtNombreHosp").val();
@@ -215,9 +215,9 @@ function cargarOfertas(){
     if (!isNaN(precioOferta)) {
         existe = buscar(nombreHosp,tipo);  //llamamos a funcion para ver si oferta ya existe
         if (!existe) {
-            autoId = autoId(tipo); //llamada a funcion para autonumerar oferta nueva
-            $("#idOfertaForm").html(autoId);
-            tmpoferta["Id"] = autoId;
+            autoIdOK = autoId(tipo); //llamada a funcion para autonumerar oferta nueva
+            $("#idOfertaForm").html(autoIdOK);
+            tmpoferta["Id"] = autoIdOK;
             tmpoferta["Nombre"] = nombreHosp;
             tmpoferta["Ubicacion"] = ubicacion;
             tmpoferta["Tipo"] = tipoHosp;
@@ -231,6 +231,7 @@ function cargarOfertas(){
             $("#txtPrecio").val(0);
             $("#fechaValidez").val("dd / mm / aaaa");
             $("#respCreaOferta").html("Oferta cargada correctamente!");
+            generoListadoOferta();
         }else {
             $("#respCreaOferta").html("Precio debe ser valor numérico");
             $("#txtPrecio").val(0);
@@ -361,61 +362,81 @@ function buscar(nombre, tipo) {
  * funciones para ocultar y mostrar contenedores
  */
 
-function mostrarUno(){
-    $(".opcion1").show();
-    $(".opcion2").hide();
-    $(".opcion3").hide();
-    $(".opcion3Oferta").show();
-    $(".MostrarDatosUsuario").hide();
-}
-function mostrarDos(){
-    $(".opcion2").show();
-    $(".opcion1").hide();
-    $(".opcion3").hide();
-    $(".opcion3Oferta").show();
-}
 function volverAUsuario() {
   $(".opcion1").hide();
   $(".opcion2").show();
   $(".opcion3").hide();
   $(".MostrarDatosUsuario").hide();
 }
-function mostrarDatosUsuario() {
-  $(".opcion1").hide();
-  $(".opcion2").hide();
-  $(".opcion3").hide();
-  $(".MostrarDatosUsuario").show();
-}
-function mostrarTres(){
+
+function noRegistrado(){
     $(".opcion2").hide();
     $(".opcion1").hide();
     $(".opcion3").show();
-    $(".opcion3Oferta").show();
+    $(".opcion3Ofertas").show();
     $(".MostrarDatosUsuario").hide();
+    $(".login").hide();
 }
-function ocultarTodo(){
+
+function mostrarDatosUsuario() {
     $(".opcion2").hide();
     $(".opcion1").hide();
     $(".opcion3").hide();
     $(".login").hide();
-    $(".opcion3Oferta").hide();
+    $(".opcion3Ofertas").hide();
     $(".MostrarDatosUsuario").hide();
+    $(".registrarme").hide();
+  $(".MostrarDatosUsuario").show();
 }
-function login(){
+function mostrarRegistrarme(){
     $(".opcion2").hide();
     $(".opcion1").hide();
     $(".opcion3").hide();
-    $(".login").show();
-    $(".opcion3Oferta").hide();
+    $(".login").hide();
+    $(".opcion3Ofertas").hide();
     $(".MostrarDatosUsuario").hide();
+    $(".registrarme").show();
+}
+function login(usuarioLogin,tipoUser){
+    var pos, tmp;
+    for (pos = 0; pos <= usuarios.length-1; pos++) {
+        tmp = usuarios[pos];
+        if (tmp["Nombre"] === usuarioLogin) {
+            if (tipoUser === "administrador") {
+                $(".opcion2").hide();
+                $(".opcion1").show();
+                $(".opcion3").hide();
+                $(".login").hide();
+                $(".misDatos").show();
+                $(".opcion3Oferta").show();
+                $(".MostrarDatosUsuario").hide();
+                $(".banner").show();
+                $(".registrarme").hide();
+            }
+            if (tipoUser === "registrado") {
+                $(".opcion2").show();
+                $(".opcion1").hide();
+                $(".opcion3").hide();
+                $(".login").hide();
+                $(".misDatos").show();
+                $(".opcion3Ofertas").show();
+                $(".MostrarDatosUsuario").hide();
+                $(".banner").show();
+                $(".registrarme").hide();
+            }
+        }
+    }
 }
 function mostrarLogin(){
     $("#contenedorOfertas").hide();
     $("#crearOfertas").hide();
     $("#crearUsuario").hide();
     $("#listadoOfertas").hide();
-    $(".login-box").show();
-    $(".opcion3Oferta").hide();
+    $("#loginWeb").show();
+    $(".opcion3Ofertas").hide();
+    $(".opcion3").hide();
+    $(".banner").hide();
+    $(".registrarme").hide();
 }
 function mostrarTodo(){
     $("#contenedorOfertas").show();
