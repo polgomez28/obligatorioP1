@@ -27,7 +27,7 @@ var usuarios = [{"Id":1, "Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"
                 ,{"Id":3, "Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
                 ,{"Id":4, "Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
 
-var reservas = [{}];
+var reservas = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019", "Reserva":"Pendiente"}];
 
 var favoritos = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"}];
 
@@ -250,11 +250,12 @@ function cargarOfertas(){
 	}
 }
 function generoListadoOferta(){
-	var listado = "", pos;
+	var listado = "", pos, tmp;
 	for(pos=0; pos<=ofertas.length-1; pos++){
 		tmpOferta = ofertas[pos];
-                tmp = tmpOferta["Id"];
+                
                 if (usuarioLogin !== "") {
+                tmp = tmpOferta["Id"];
                 listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
@@ -262,11 +263,11 @@ function generoListadoOferta(){
 		listado = listado + "<td>" + tmpOferta["Tipo"] + "</td>";
 		listado = listado + "<td>" + tmpOferta["Precio"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["FinValidez"] + "</td>";
-                listado = listado + "<td>" + "<input type='button' value='Reservar' class='btnFormularios' id='reserva" + tmpOferta["Id"] + "'>" + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Reservar' class='btnFormularios' onclick='addReserva(" + tmp + ")'" + " id='reserva" + tmp + "'>" + "</td>";
                 listado = listado + "<td>" + "<input type='button' value='Favorito' class='btnFormularios'  onclick='addFavoritos(" + tmp + ")'" + " id='btn" + tmpOferta["Id"] +  "'>" + "</td>";
 		listado = listado + "</tr>";
         }else {
-            
+                tmp = tmpOferta["Id"];
 		listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
@@ -279,6 +280,112 @@ function generoListadoOferta(){
 	}
 	$("#contenidoOfertas3").html(listado);
 }
+
+// REALIZO UNA RESERVA, LA VALIDO Y LA AGREGO AL ARRAY RESERVAS
+
+function addReserva(idboton) {
+    $("#reserva" + idboton).attr("disabled", true);
+    var salir = false, indice = 0, tmp = {}, existe, tipo = "Reserva";
+    existe = buscar(idboton,tipo);
+    if(!existe){
+        while (!salir && indice <= ofertas.length - 1) {
+        tmp = ofertas[indice];
+        if (tmp["Id"] === idboton) {
+            salir = true;
+        } else {
+            indice++;
+        }
+    }
+    if (salir) {
+      tmp["Reserva"] = "Pendiente";
+        reservas[reservas.length] = tmp;
+        listaReservas();
+    }
+    }else {
+        alert("La oferta ya está reservada");
+    }
+}
+// FUNCIÓN PARA LISTAR LAS RESERVAS
+function listaReservas() {
+    var listado = "", listadoPen = "", listadoDen = "", tmpReserva = {}, pos, tmp;
+    for (pos = 0; pos <= reservas.length - 1; pos++) {
+        tmpReserva = reservas[pos];
+        if (tmpReserva["Reserva"] === "Pendiente") {
+            tmp = tmpReserva["Id"];
+            listadoPen = listadoPen + "<tr>";
+            listadoPen = listadoPen + "<td>" + tmpReserva["Id"] + "</td>";
+            listadoPen = listadoPen + "<td>" + tmpReserva["Nombre"] + "</td>";
+            listadoPen = listadoPen + "<td>" + tmpReserva["Ubicacion"] + "</td>";
+            listadoPen = listadoPen + "<td>" + "<img src='imagenes/" + tmpReserva["Foto"] + "'/>" + "</td>";
+            listadoPen = listadoPen + "<td>" + tmpReserva["Tipo"] + "</td>";
+            listadoPen = listadoPen + "<td>" + tmpReserva["Precio"] + "</td>";
+            listadoPen = listadoPen + "<td>" + tmpReserva["FinValidez"] + "</td>";
+            listadoPen = listadoPen + "<td>" + "<input type='button' value='Confirmar Reserva'  onclick='confirmarReserva(" + tmp + ")'" + " id='conf" + tmp + "'>" + "</td>";
+            listadoPen = listadoPen + "<td>" + "<input type='button' value='Denegar Reserva'  onclick='denegarReserva(" + tmp + ")'" + " id='denegar" + tmp + "'>" + "</td>";
+            listadoPen = listadoPen + "</tr>";
+        }else{
+        if (tmpReserva["Reserva"] === "Aceptada") {
+            tmp = tmpReserva["Id"];
+            listado = listado + "<tr>";
+            listado = listado + "<td>" + tmpReserva["Id"] + "</td>";
+            listado = listado + "<td>" + tmpReserva["Nombre"] + "</td>";
+            listado = listado + "<td>" + tmpReserva["Ubicacion"] + "</td>";
+            listado = listado + "<td>" + "<img src='imagenes/" + tmpReserva["Foto"] + "'/>" + "</td>";
+            listado = listado + "<td>" + tmpReserva["Tipo"] + "</td>";
+            listado = listado + "<td>" + tmpReserva["Precio"] + "</td>";
+            listado = listado + "<td>" + tmpReserva["FinValidez"] + "</td>";
+            listado = listado + "</tr>";
+        }
+        }
+        if (tmpReserva["Reserva"] === "Denegada") {
+            tmp = tmpReserva["Id"];
+            listadoDen = listadoDen + "<tr>";
+            listadoDen = listadoDen + "<td>" + tmpReserva["Id"] + "</td>";
+            listadoDen = listadoDen + "<td>" + tmpReserva["Nombre"] + "</td>";
+            listadoDen = listadoDen + "<td>" + tmpReserva["Ubicacion"] + "</td>";
+            listadoDen = listadoDen + "<td>" + "<img src='imagenes/" + tmpReserva["Foto"] + "'/>" + "</td>";
+            listadoDen = listadoDen + "<td>" + tmpReserva["Tipo"] + "</td>";
+            listadoDen = listadoDen + "<td>" + tmpReserva["Precio"] + "</td>";
+            listadoDen = listadoDen + "<td>" + tmpReserva["FinValidez"] + "</td>";
+            listadoDen = listadoDen + "</tr>";
+        }
+    }
+    
+    $("#listadoOfertasNoConf").html(listadoPen);
+    $("#listadoOfertasConf").html(listado);
+    $("#listadoOfertasDen").html(listadoDen);
+}
+// Función para confirmar las reservas en tabla de confirmadas
+function confirmarReserva(idReserva) {
+  var tmpReserva = {}, pos;
+  for (pos = 0; pos <= reservas.length-1; pos++) {
+      tmpReserva = reservas[pos];
+      if (tmpReserva["Id"] === idReserva) {
+          tmpReserva["Reserva"] = "Aceptada";
+          reservas[pos] = tmpReserva;
+          listarReservasConfirmadas();
+        }
+      }
+    }
+// Listamos las reservas confirmadas
+function listarReservasConfirmadas() {
+    var listado = "", tmpReserva = {}, pos;
+    for (pos = 0; pos <= reservas.length - 1; pos++) {
+        tmpReserva = reservas[pos];
+        listado = listado + "<tr>";
+        listado = listado + "<td>" + tmpReserva["Id"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["Nombre"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["Ubicacion"] + "</td>";
+        listado = listado + "<td>" + "<img src='imagenes/" + tmpReserva["Foto"] + "'/>" + "</td>";
+        listado = listado + "<td>" + tmpReserva["Tipo"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["Precio"] + "</td>";
+        listado = listado + "<td>" + tmpReserva["FinValidez"] + "</td>";
+        listado = listado + "</tr>";
+    }
+    $("#contenidoReservas2").html(listado);
+    $("#listadoOfertasConf").html(listado);
+}
+
 function addFavoritos(idboton) {
     $("#btn" + idboton).attr("disabled", true);
     var salir = false, indice = 0, tmp = {}, existe, tipo = "Favorito";
@@ -350,6 +457,15 @@ function buscar(nombre, tipo) {
         }
         return existe;
     } else {
+        if (tipo === "Reserva") {
+            for (pos = 0; pos <= reservas.length - 1; pos++) {
+                tmp = reservas[pos];
+                if (tmp["Id"] === nombre) {
+                    existe = true;
+                }
+            }
+            return existe;
+        }
         if (tipo === "Favorito") {
             for (pos = 0; pos <= favoritos.length - 1; pos++) {
                 tmp = favoritos[pos];
@@ -421,7 +537,7 @@ function login(usuarioLogin,tipoUser){
                 $(".opcion3").hide();
                 $(".login").hide();
                 $(".misDatos").show();
-                $(".opcion3Oferta").show();
+                $(".opcion3Ofertas").show();
                 $(".MostrarDatosUsuario").hide();
                 $(".banner").show();
                 $(".registrarme").hide();
@@ -447,7 +563,7 @@ function volver(){
         $(".opcion3").hide();
         $(".login").hide();
         $(".misDatos").show();
-        $(".opcion3Oferta").show();
+        $(".opcion3Ofertas").show();
         $(".MostrarDatosUsuario").hide();
         $(".banner").show();
         $(".registrarme").hide();

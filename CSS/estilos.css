@@ -201,6 +201,10 @@ div#listReservas form.formOfertas{
     position: relative;
     right: 260px
 }
+div.opcion3 form.formOfertas{
+    position: relative;
+    right: 260px
+}
 div#formatoEstadoCuenta form.formOfertas{
     position: relative;
     right: 250px;
