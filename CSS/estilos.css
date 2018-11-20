@@ -197,6 +197,10 @@ div#formatoMisReservas{
     background-color: #9E7B16;
     border: 1px solid black;
 }
+div#listReservas form.formOfertas{
+    position: relative;
+    right: 260px
+}
 div#formatoEstadoCuenta form.formOfertas{
     position: relative;
     right: 250px;
