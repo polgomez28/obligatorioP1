@@ -7,6 +7,7 @@ function iniciar(){
     $("#btnVolver").click(volverAUsuario);
     $(".btnlogin").click(mostrarLogin); //muestra login desde menu -Ingresar
     $("#btnVolverNoRegistrado").click(noRegistrado);
+    $("#btnVolverRegistrado").click(volver);
     $("#mostrar").click(mostrarTodo);
     $("#btnAltaUsuario").click(validarUsuario);
     $("#btnCrearOferta").click(cargarOfertas); // (PRONTA) llama a funcion que valida oferta y la da de alta en array ofertas
@@ -56,8 +57,8 @@ function loginVal(){
             if (tmp["Nombre"] === usuarioLogin && tmp["Clave"] === passLogin) {
                 tipoUser = tmp["Rol"];
                 $("#usuarioLogeado").html("Bienvenido " + usuarioLogin + "! " + tipoUser);
+                generoListadoOferta(usuarioLogin);
                 login(usuarioLogin,tipoUser);
-                
             }
         }
 }else {
@@ -146,7 +147,7 @@ function registroUsuarios(){
             estados = tmpUsuario["Estado"];
             listado = listado + "<td>" + estados + "</td>";
             listado = listado + "<td>" + tmpUsuario["Correo"] + "</td>";
-            listado = listado + "<td>" + "<input type='button' value='Habilitar' onclick='habilitarUsuario(" + idUsuario + ")'" + " id='" + idUsuario + "'>" + "</td>";
+            listado = listado + "<td>" + "<input type='button' class='btnFormularios' value='Habilitar' onclick='habilitarUsuario(" + idUsuario + ")'" + " id='" + idUsuario + "'>" + "</td>";
             listado = listado + "</tr>";
         }else {
             listado = listado + "<tr>";
@@ -253,6 +254,19 @@ function generoListadoOferta(){
 	for(pos=0; pos<=ofertas.length-1; pos++){
 		tmpOferta = ofertas[pos];
                 tmp = tmpOferta["Id"];
+                if (usuarioLogin !== "") {
+                listado = listado + "<tr>";
+		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
+		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
+		listado = listado + "<td>" + "<img src='imagenes/" + tmpOferta["Foto"] + "'/>" + "</td>";
+		listado = listado + "<td>" + tmpOferta["Tipo"] + "</td>";
+		listado = listado + "<td>" + tmpOferta["Precio"] + "</td>";
+		listado = listado + "<td>"  + tmpOferta["FinValidez"] + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Reservar' class='btnFormularios' id='reserva" + tmpOferta["Id"] + "'>" + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Favorito' class='btnFormularios'  onclick='addFavoritos(" + tmp + ")'" + " id='btn" + tmpOferta["Id"] +  "'>" + "</td>";
+		listado = listado + "</tr>";
+        }else {
+            
 		listado = listado + "<tr>";
 		listado = listado + "<td>" + tmpOferta["Nombre"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["Ubicacion"] + "</td>";
@@ -260,9 +274,8 @@ function generoListadoOferta(){
 		listado = listado + "<td>" + tmpOferta["Tipo"] + "</td>";
 		listado = listado + "<td>" + tmpOferta["Precio"] + "</td>";
 		listado = listado + "<td>"  + tmpOferta["FinValidez"] + "</td>";
-                listado = listado + "<td>" + "<input type='button' value='Reservar' id='reserva" + tmpOferta["Id"] + "'>" + "</td>";
-                listado = listado + "<td>" + "<input type='button' value='Favorito'  onclick='addFavoritos(" + tmp + ")'" + " id='btn" + tmpOferta["Id"] +  "'>" + "</td>";
 		listado = listado + "</tr>";
+        }
 	}
 	$("#contenidoOfertas3").html(listado);
 }
@@ -298,7 +311,7 @@ function listaFavoritos(){
 		listado = listado + "<td>" + tmpFavoritos["Tipo"] + "</td>";
 		listado = listado + "<td>" + tmpFavoritos["Precio"] + "</td>";
 		listado = listado + "<td>"  + tmpFavoritos["FinValidez"] + "</td>";
-                listado = listado + "<td>" + "<input type='button' value='Reservar' id='reservaFav" + tmpFavoritos["Id"] + "'>" + "</td>";
+                listado = listado + "<td>" + "<input type='button' value='Reservar' class='btnFormularios' id='reservaFav" + tmpFavoritos["Id"] + "'>" + "</td>";
 		listado = listado + "</tr>";
         
 	}
@@ -425,6 +438,37 @@ function login(usuarioLogin,tipoUser){
                 $(".registrarme").hide();
             }
         }
+    }
+}
+function volver(){
+    if (tipoUser === "administrador") {
+        $(".opcion2").hide();
+        $(".opcion1").show();
+        $(".opcion3").hide();
+        $(".login").hide();
+        $(".misDatos").show();
+        $(".opcion3Oferta").show();
+        $(".MostrarDatosUsuario").hide();
+        $(".banner").show();
+        $(".registrarme").hide();
+    }
+    if (tipoUser === "registrado") {
+        $(".opcion2").show();
+        $(".opcion1").hide();
+        $(".opcion3").hide();
+        $(".login").hide();
+        $(".misDatos").show();
+        $(".opcion3Ofertas").show();
+        $(".MostrarDatosUsuario").hide();
+        $(".banner").show();
+        $(".registrarme").hide();
+    }else {
+        $(".opcion2").hide();
+        $(".opcion1").hide();
+        $(".opcion3").show();
+        $(".opcion3Ofertas").show();
+        $(".MostrarDatosUsuario").hide();
+        $(".login").hide();
     }
 }
 function mostrarLogin(){

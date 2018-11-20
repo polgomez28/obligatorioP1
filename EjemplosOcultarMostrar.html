@@ -67,7 +67,7 @@ and open the template in the editor.
         <div class="opcion3Ofertas">
             <form class="formOfertas">
                 <p class="tituloTabla">Listado ofertas</p>
-                    <table>
+                    <table class="tablas">
                         <thead>
                             <tr class="textoColumnas">
                                 <td> Nombre </td>
@@ -99,6 +99,7 @@ and open the template in the editor.
                         <tbody id="listarMisDatos">
                         </tbody>
                     </table>
+                    <input class="btnFormularios" type="button" id="btnVolverRegistrado" value="Volver">
             </form>
         </div>
         <div class="opcion1" id="listReservas">
@@ -193,9 +194,9 @@ and open the template in the editor.
                     <table>
                         <thead>
                             <tr class="textoColumnas">
-                                <td style="font-size: 16px"> Usuarios </td>
-                                <td style="font-size: 16px"> Estados </td>
-                                <td style="font-size: 16px"> Correo </td>
+                                <td> Usuarios </td>
+                                <td> Estados </td>
+                                <td> Correo </td>
                             </tr>
                         </thead>
                         <tbody id="solicitudRegistro">
@@ -208,8 +209,7 @@ and open the template in the editor.
         ESTOS SE MOSTRARAN PARA LOS USUARIOS REGISTRADOS.
         -->
         <div class="opcion2" id="formatoFavoritos">
-            <form>
-                
+            <form class="formOfertas">
                     <p class="tituloTabla">Favoritos!</p>
                     <table>
                         <thead>
@@ -229,7 +229,7 @@ and open the template in the editor.
             </form>
         </div>
         <div class="opcion2" id="formatoMisReservas">
-            <form>
+            <form class="formOfertas">
                 <p class="tituloTabla">Mis Reservas</p>
                     <table>
                         <tr class="textoColumnas">
@@ -244,7 +244,7 @@ and open the template in the editor.
             </form>
         </div>
         <div class="opcion2" id="formatoEstadoCuenta">
-            <form>
+            <form class="formOfertas">
                 <p class="tituloTabla">Estado de cuenta</p>
                     <table>
                         <thead>
