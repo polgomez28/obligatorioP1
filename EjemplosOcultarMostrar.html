@@ -17,8 +17,10 @@ and open the template in the editor.
     </head>
     <body>
         <div class="banner">
+            <p id="usarioLogueado"></p>
             <div class="menu">
                 <ul>
+                    <li><a href="#" class="logout" id="btnSalir">Salir</a></li>
                     <li><a href="#" class="misDatos" id="btnMisDatos">Mis Datos</a></li>
                     <li><a href="#" class="btnlogin">Ingresar</a></li>
                     <li><a href="#" class="btnMenu">Registrarme</a></li>
@@ -43,25 +45,6 @@ and open the template in the editor.
                 
                 <a href="#">Olvido la contraseña?</a>
 
-            </form>
-        </div>
-        <div class="opcion2" id="ofertaDestadaFormato">
-            <form class="formOfertas">
-                <p class="tituloTabla">Destacadas!</p>
-                    <table>
-                        <thead>
-                            <tr class="textoColumnas">
-                                <td> Nombre </td>
-                                <td> Ubicación </td>
-                                <td> Foto </td>
-                                <td> Tipo </td>
-                                <td> Precio </td>
-                                <td> Fin validez </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
             </form>
         </div>
         <div class="opcion3Ofertas">
@@ -121,6 +104,7 @@ and open the template in the editor.
                     <tbody id="listadoOfertasConf">
                     </tbody>
                 </table>
+                <div id="montoConfirmadas" class="Montos"></div>
                 <p class="tituloTabla">Pendientes</p>
                 <table>
                     <thead>
@@ -137,6 +121,7 @@ and open the template in the editor.
                     <tbody id="listadoOfertasNoConf">
                     </tbody>
                 </table>
+                <div id="montoPendientes" class="Montos"></div>
                 <p class="tituloTabla">Denegadas</p>
                 <table>
                     <thead>
@@ -153,6 +138,7 @@ and open the template in the editor.
                     <tbody id="listadoOfertasDen">
                     </tbody>
                 </table>
+                <div id="montoDenegadas" class="Montos"></div>
             </form>
         </div>
         <div class="opcion1" id="crearOferta">
@@ -176,7 +162,7 @@ and open the template in the editor.
                         Precio: <input type="text" id="txtPrecio">
                     </p>
                     <p>
-                        Fecha validez: <input type="text" id="fechaValidez" value="dd / mm / aaaa">
+                        Fecha validez: <input type="date" id="fechaValidez">
                     </p>
                     <p>
                         Seleccionar foto: <input type="file" id="txtFoto"/>
@@ -233,10 +219,14 @@ and open the template in the editor.
                 <p class="tituloTabla">Mis Reservas</p>
                     <table>
                         <tr class="textoColumnas">
-                            <td>Hospedaje</td>
+                            <td>Nro</td>
+                            <td>Usuario</td>
+                            <td>Nombre</td>
+                            <td>Ubicación</td>
+                            <td>Foto</td>
                             <td>Tipo</td>
-                            <td>Noches</td>
-                            <td>Precio Por Noche</td>
+                            <td>Precio</td>
+                            <td>Fin validez</td>
                         </tr>
                         <tbody id="contenidoReservas2">
                         </tbody>
@@ -252,12 +242,12 @@ and open the template in the editor.
                                 <td>Hospedaje</td>
                                 <td>Precio($UY)</td>
                                 <td>Estado</td>
-                                <td>Factura</td>
                             </tr>
                         </thead>
                         <tbody id="estadoCuenta">
                         </tbody>
                     </table>
+                <div id="totalEstadoCuenta" class="Montos"></div>
             </form>
         </div>
         <!--

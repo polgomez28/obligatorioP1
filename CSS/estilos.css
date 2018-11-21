@@ -28,10 +28,19 @@ div.banner{
 }
 /*ESTILOS DE LA LISTA DEL MENU
 */
+p#usarioLogueado{
+    height: 10px;
+    width: 60px;
+    font-family: sans-serif;
+    display: block;
+    margin-left: 93%;
+    color: white;
+    font-size: 10px;
+}
 .menu{
     position: relative;
-    left: 590px;
-    top: 120px;
+    left: 470px;
+    top: 110px;
 }
 .menu ul{
     list-style: none;
@@ -130,12 +139,19 @@ div.opcion3Ofertas{
     background-color: #9E7B16;
     border: 1px solid black;
 }
+div.Montos{
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    display: inline-block;
+}
 form.formOfertas{
     margin: auto;
     width: 100%;
     height: 250px;
     margin-top: 25px;
-    margin-left: 300px;
+    margin-left: 270px;
 }
 tr.textoColumnas{
     font-family: sans-serif;
