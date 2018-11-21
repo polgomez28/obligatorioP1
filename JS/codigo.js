@@ -472,8 +472,8 @@ function listaReservas() {
             tmp = tmpReserva["Id"];
             listadoUsu = listadoUsu + "<tr>";
             listadoUsu = listadoUsu + "<td>" + tmpReserva["Id"] + "</td>";
-            listadoUsu = listadoUsu + "<td>" + tmpReserva["Reserva"] + "</td>";
             listadoUsu = listadoUsu + "<td>" + tmpReserva["Usuario"] + "</td>";
+            listadoUsu = listadoUsu + "<td>" + tmpReserva["Reserva"] + "</td>";
             listadoUsu = listadoUsu + "<td>" + tmpReserva["Nombre"] + "</td>";
             listadoUsu = listadoUsu + "<td>" + tmpReserva["Ubicacion"] + "</td>";
             listadoUsu = listadoUsu + "<td>" + "<img src='imagenes/" + tmpReserva["Foto"] + "'/>" + "</td>";
