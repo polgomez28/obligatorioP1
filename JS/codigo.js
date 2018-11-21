@@ -4,7 +4,7 @@ function iniciar(){
     //PROVISORIO
     $(".btnMenu").click(mostrarRegistrarme);
     $("#btnMisDatos").click(mostrarDatosUsuario);
-    $("#btnVolver").click(volverAUsuario);
+    
     $(".btnlogin").click(mostrarLogin); //muestra login desde menu -Ingresar
     $("#btnVolverNoRegistrado").click(noRegistrado);
     $("#btnVolverRegistrado").click(volver);
@@ -15,9 +15,9 @@ function iniciar(){
     $("#btnLogin").click(loginVal);
     $("#btnSalir").click(logout);
     generoListadoOferta();
-    generoListadoReservas();
     listaFavoritos();
     registroUsuarios();
+    
 }
 /* Definimos las variables globales
  * y los arrays globales.
@@ -28,25 +28,26 @@ var usuarios = [{"Id":1, "Nombre":"polg", "Correo":"polg28@gmail.com", "Clave":"
                 ,{"Id":3, "Nombre":"charly", "Correo":"charly@gmail.com", "Clave":"charly", "Estado":"Habilitado", "Rol":"registrado"}
                 ,{"Id":4, "Nombre":"jose", "Correo":"jose@adinet.com.uy", "Clave":"jose", "Estado":"Pendiente", "Rol":"pendiente"}];
 
-var reservas = [{"Id":1, "IdReserva":1, "Usuario":"charly", "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019", "Reserva":"Pendiente"}];
+var reservas = [{"Id":1, "IdReserva":1, "Usuario":"charly", "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019", "Reserva":"Pendiente", "Vendida":1}
+                 ,{"Id":3, "IdReserva":2, "Usuario":"Necuse", "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hotel", "Precio":500, "FinValidez":"20/02/2019", "Reserva":"Pendiente", "Vendida":3}];
 
 var favoritos = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019"}];
 
-var ofertas = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"20/02/2019", "Estado":"Activa", "Destacada":"SI"},
-               {"Id":2, "Nombre":"Las Rosas", "Ubicacion":"Florida", "Foto":"hostel1.jpg", "Tipo":"Hotel", "Precio":1200, "FinValidez":"20/02/2019", "Estado":"Activa", "Destacada":"SI"},
-               {"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"20/02/2019", "Estado":"Inactiva", "Destacada":"NO"}];
+var ofertas = [{"Id":1, "Nombre":"La Posada", "Ubicacion":"Maldonado", "Foto":"colonia.jpg", "Tipo":"Hotel", "Precio":800, "FinValidez":"2018-11-24", "Estado":"Activa", "Destacada":"SI"},
+               {"Id":2, "Nombre":"Las Rosas", "Ubicacion":"Florida", "Foto":"hostel1.jpg", "Tipo":"Hotel", "Precio":1200, "FinValidez":"2019-05-20", "Estado":"Activa", "Destacada":"SI"},
+               {"Id":3, "Nombre":"El Ciclon", "Ubicacion":"Durazno", "Foto":"hotel.jpg", "Tipo":"Hostel", "Precio":500, "FinValidez":"2019-5-25", "Estado":"Inactiva", "Destacada":"NO"}];
 
 var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":2, "nombre":"Hostel"},
                   {"tipo":3, "nombre":"Casa"},
                   {"tipo":4, "nombre":"Apartamento"}];
 
-var passLogin, usuarioLogin, userOK, tipoUser, ids = {}, tmpOferta = {}, tmp = "", favorito = {}, fotosDir = "imagenes/";
+var passLogin, usuarioLogin, tipoUser, fotosDir = "imagenes/", FechaActual = new Date();
 // Tomamos la hora actual en una variable para validar fechas de ofertas
 
 
 function loginVal(){
-    var tipo = "usuario";
+    var tipo = "usuario", userOK;
     //var tmp = {};
     usuarioLogin = $("#txtUser").val();
     passLogin = $("#txtPassword").val();
@@ -60,8 +61,9 @@ function loginVal(){
             if (tmp["Nombre"] === usuarioLogin && tmp["Clave"] === passLogin) {
                 tipoUser = tmp["Rol"];
                 $("#usarioLogueado").html("Bienvenido " + usuarioLogin + "!");
+                masVendidasDisparo();
                 generoListadoOferta(usuarioLogin);
-                login(usuarioLogin,tipoUser);
+                loginCheck(usuarioLogin,tipoUser);
             }
         }
 }else {
@@ -126,7 +128,7 @@ function validarUsuario() {
             tmpUsuario["Nombre"] = nombreUsuario;
             tmpUsuario["Correo"] = correoUsuario;
             tmpUsuario["Clave"] = contraseña;
-            tmpUsuario["Estado"] = false;
+            tmpUsuario["Estado"] = "Pendiente";
             tmpUsuario["Rol"] = "pendiente";
             usuarios[usuarios.length] = tmpUsuario;
             $("#respSolicitudUsuario").html("Usuario dado de alta correctamente!");
@@ -188,20 +190,12 @@ function cargoTiposHospedajes(){
 	var tmpHospedaje={}, opciones="";
 	for(pos=0; pos<=hospedajes.length-1; pos++){
 		tmpHospedaje = hospedajes[pos];
-		opciones = opciones + "<option value='" + tmpHospedaje["tipo"];
+		opciones = opciones + "<option value='" + tmpHospedaje["nombre"];
 		opciones = opciones + "'>" + tmpHospedaje["nombre"] + "</option>";		
 	}
 	return opciones;
 }
-/*
- * 
- * 
- * function cargoImagen(){
-	var foto = $("#txtFoto").val();
-	var nombreFoto = foto.substr(12);
-	$("#imgFoto").attr("src",fotosDir + nombreFoto);
-}
- */
+
 
 //Funciones que valida que no exista oferta a dar de alta y la agrega al array ofertas
 function cargarOfertas(){
@@ -219,6 +213,7 @@ function cargarOfertas(){
     if (!isNaN(precioOferta)) {
         existe = buscar(nombreHosp,tipo);  //llamamos a funcion para ver si oferta ya existe
         if (!existe) {
+            if(fechaVal > FechaActual){
             autoIdOK = autoId(tipo); //llamada a funcion para autonumerar oferta nueva
             $("#idOfertaForm").html(autoIdOK);
             tmpoferta["Id"] = autoIdOK;
@@ -228,6 +223,7 @@ function cargarOfertas(){
             tmpoferta["Precio"] = precioOferta;
             tmpoferta["FinValidez"] = fechaVal;
             tmpoferta["Foto"] = nombreFoto;
+            tmpoferta["Estado"] = "Activa";
             ofertas[ofertas.length] = tmpoferta;    //Se da de alta oferta nueva en array
             $("#txtNombreHosp").val("");
             $("#txtUbicacion").val("");
@@ -236,6 +232,10 @@ function cargarOfertas(){
             $("#fechaValidez").val("dd / mm / aaaa");
             $("#respCreaOferta").html("Oferta cargada correctamente!");
             generoListadoOferta();
+        }else {
+                $("#respCreaOferta").html("Error, fecha oferta tiene que ser mayor a fecha actual");
+            }
+
         }else {
             $("#respCreaOferta").html("Error, oferta ya existe. Ingrese una diferente");
             $("#txtPrecio").val(0);
@@ -246,15 +246,7 @@ function cargarOfertas(){
     }
 
 }
- function calculoVentas(){
-	var tipo = $(this).val(); //idem a $("#selGuitarra")....
-	if(tipo!==""){
-		$("#totalVenta").html(totalVentas(tipo));
-	}
-	else{
-		$("#totalVenta").html(0);
-	}
-}
+
 function generoListadoOferta() {
     var listado = "", pos, tmp;
     for (pos = 0; pos <= ofertas.length - 1; pos++) {
@@ -506,6 +498,7 @@ function confirmarReserva(idReserva) {
       tmpReserva = reservas[pos];
       if (tmpReserva["Id"] === idReserva) {
           tmpReserva["Reserva"] = "Aceptada";
+          tmpReserva["Vendida"] = (tmpReserva["Vendida"] + 1);
           reservas[pos] = tmpReserva;
           listaReservas();
         }
@@ -563,21 +556,7 @@ function listaFavoritos(){
 	}
         $("#contenidoFavoritos").html(listado);
 }
-function generoListadoReservas() {
-    var listado = "", tmpReserva = {};
-    var pos;
-    for (pos = 0; pos <= reservas.length - 1; pos++) {
-        tmpReserva = reservas[pos];
-        listado = listado + "<tr>";
-        listado = listado + "<td>" + tmpReserva["Nombre"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["Tipo"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["Noches"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["Precio"] + "</td>";
-        listado = listado + "</tr>";
-    }
-    $("#contenidoReservas").html(listado);
-    //$("#contenidoReservas2").html(listado);
-}
+
 function estadoDeCuenta(){
     var pos, tmpReserva = {}, listado = "", total = 0;
     for (pos = 0; pos <= reservas.length-1; pos++) {
@@ -594,9 +573,7 @@ function estadoDeCuenta(){
     $("#estadoCuenta").html(listado);
     $("#totalEstadoCuenta").html("Total: " + total);
 }
-function calcularMontoTotal(){
-    
-}
+
 function buscar(nombre, tipo) {
     var tmp;
     var existe = false;
@@ -649,13 +626,29 @@ function buscar(nombre, tipo) {
  * funciones para ocultar y mostrar contenedores
  */
 
-function volverAUsuario() {
-  $(".opcion1").hide();
-  $(".opcion2").show();
-  $(".opcion3").hide();
-  $(".MostrarDatosUsuario").hide();
+function masVendidas(a,b){
+    var retorno = 0, a, b;
+    if (a["Vendida"]>b["Vendida"]) {
+        retorno = 1;
+    }else {
+        if (a["Vendida"]<b["Vendida"]) {
+        retorno = -1;
+    }
+    }
+    return retorno;
 }
-
+function masVendidasDisparo(){
+    var listado = "", pos;
+    reservas.sort(masVendidas).reverse();
+        for (pos = 0; pos <= reservas.length-1; pos++) {
+        tmpReserva = reservas[pos];
+            listado = listado + "<tr>";
+            listado = listado + "<td>" + tmpReserva["Nombre"] + "</td>";
+            listado = listado + "<td>" + tmpReserva["Usuario"] + "</td>";
+            listado = listado + "</tr>";
+        }
+    $("#listadoOfertasMasVendidas").html(listado);
+}
 function noRegistrado(){
     $(".opcion2").hide();
     $(".opcion1").hide();
@@ -663,6 +656,7 @@ function noRegistrado(){
     $(".opcion3Ofertas").show();
     $(".MostrarDatosUsuario").hide();
     $(".login").hide();
+    $(".registrarme").hide();
 }
 
 function mostrarDatosUsuario() {
@@ -684,7 +678,7 @@ function mostrarRegistrarme(){
     $(".MostrarDatosUsuario").hide();
     $(".registrarme").show();
 }
-function login(usuarioLogin,tipoUser){
+function loginCheck(usuarioLogin,tipoUser){
     var pos, tmp;
     for (pos = 0; pos <= usuarios.length-1; pos++) {
         tmp = usuarios[pos];
@@ -701,7 +695,7 @@ function login(usuarioLogin,tipoUser){
                 $(".registrarme").hide();
                 listaReservas();
                 generoListadoOferta();
-                generoListadoReservas();
+                registroUsuarios();
             }
             if (tipoUser === "registrado") {
                 $(".opcion2").show();

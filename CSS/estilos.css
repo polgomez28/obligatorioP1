@@ -238,6 +238,13 @@ div#formatoEstadoCuenta{
     background-color: #9E7B16;
     border: 1px solid black;
 }
+input[type=password] {
+    width: 40ch;
+}
+input:invalid {
+    border: 2px solid red;
+}
+
 td {
    width: 13%;
    text-align: left;
