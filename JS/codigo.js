@@ -363,28 +363,22 @@ function confirmarReserva(idReserva) {
       if (tmpReserva["Id"] === idReserva) {
           tmpReserva["Reserva"] = "Aceptada";
           reservas[pos] = tmpReserva;
-          listarReservasConfirmadas();
+          listaReservas();
         }
       }
     }
-// Listamos las reservas confirmadas
-function listarReservasConfirmadas() {
-    var listado = "", tmpReserva = {}, pos;
-    for (pos = 0; pos <= reservas.length - 1; pos++) {
-        tmpReserva = reservas[pos];
-        listado = listado + "<tr>";
-        listado = listado + "<td>" + tmpReserva["Id"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["Nombre"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["Ubicacion"] + "</td>";
-        listado = listado + "<td>" + "<img src='imagenes/" + tmpReserva["Foto"] + "'/>" + "</td>";
-        listado = listado + "<td>" + tmpReserva["Tipo"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["Precio"] + "</td>";
-        listado = listado + "<td>" + tmpReserva["FinValidez"] + "</td>";
-        listado = listado + "</tr>";
+
+function denegarReserva(idReserva) {
+  var tmpReserva = {}, pos;
+  for (pos = 0; pos <= reservas.length-1; pos++) {
+      tmpReserva = reservas[pos];
+      if (tmpReserva["Id"] === idReserva) {
+          tmpReserva["Reserva"] = "Denegada";
+          reservas[pos] = tmpReserva;
+          listaReservas();
+        }
+      }
     }
-    $("#contenidoReservas2").html(listado);
-    $("#listadoOfertasConf").html(listado);
-}
 
 function addFavoritos(idboton) {
     $("#btn" + idboton).attr("disabled", true);
