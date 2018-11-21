@@ -3,13 +3,14 @@ function iniciar(){
     //Inicia llamas para ocultar mostrar.
     //PROVISORIO
     $(".btnMenu").click(mostrarRegistrarme);
-    $("#btnMisDatos").click(mostrarDatosUsuario);
+    $("#btnMisDatos").click(mostrarMisDatos);
     
     $(".btnlogin").click(mostrarLogin); //muestra login desde menu -Ingresar
     $("#btnVolverNoRegistrado").click(noRegistrado);
     $("#btnVolverRegistrado").click(volver);
     $("#mostrar").click(mostrarTodo);
     $("#btnAltaUsuario").click(validarUsuario);
+    $("#btnCambiarContraseña").click(cambiarContraseña);
     $("#btnCrearOferta").click(cargarOfertas); // (PRONTA) llama a funcion que valida oferta y la da de alta en array ofertas
     $("#hosTipo").html(cargoTiposHospedajes());
     $("#btnLogin").click(loginVal);
@@ -42,32 +43,60 @@ var hospedajes = [{"tipo":1, "nombre":"Hotel"},
                   {"tipo":3, "nombre":"Casa"},
                   {"tipo":4, "nombre":"Apartamento"}];
 
-var passLogin, usuarioLogin, tipoUser, fotosDir = "imagenes/", FechaActual = new Date();
-// Tomamos la hora actual en una variable para validar fechas de ofertas
+var passLogin, usuarioLogin, tipoUser, fotosDir = "imagenes/", FechaActual = new Date(); // Tomamos la hora actual en una variable para validar fechas de ofertas
 
+function mostrarMisDatos() {
+    var listado = "", tmpDatos = {}, pos;
+    for (pos = 0; pos <= usuarios.length - 1; pos++) {
+        tmpDatos = usuarios[pos];
+        if (usuarioLogin === tmpDatos["Nombre"]) {
+            listado = listado + "<tr>";
+            listado = listado + "<td>" + tmpDatos["Nombre"] + "</td>";
+            listado = listado + "<td>" + tmpDatos["Correo"] + "</td>";
+            listado = listado + "<td>" + tmpDatos["Rol"] + "</td>";
+            listado = listado + "</tr>";
+        }
+    }
+    $("#listarMisDatos").html(listado);
+    mostrarDatosUsuario();
+}
+function cambiarContraseña() {
+  var pos,tmp;
+  var contraseña = $("#nuevaPass1").val();
+  var contraseñaVal = $("#nuevaPass2").val();
+  if (contraseña === contraseñaVal) {
+    for (pos=0;pos <= usuarios.length-1;pos++){
+      tmp = usuarios[pos];
+      if ( tmp["Nombre"] === usuarioLogin ){
+        tmp["Clave"] = contraseña;
+      }
+    }
+    $("#mensajeCambioDePass").html(" La contraseña se cambio exitosamente");
+}
+else {
+    $("#mensajeCambioDePass").html(" Las contraseñas no coinciden");
+}
+}
 
-function loginVal(){
-    var tipo = "usuario", userOK;
+function loginVal() {
+    var tipo = "usuario", userOK, pos, tmp;
     //var tmp = {};
     usuarioLogin = $("#txtUser").val();
     passLogin = $("#txtPassword").val();
-    userOK = buscar(usuarioLogin, tipo);
+    userOK = buscar(usuarioLogin, passLogin, tipo);
     if (userOK) {
-        
-        //$("#usuarioLogeado").html("Bienvenido " + usuarioLogin + "!");
-        
-        for (var i = 0; i <= usuarios.length-1; i++) {
-            tmp = usuarios[i];
-            if (tmp["Nombre"] === usuarioLogin && tmp["Clave"] === passLogin) {
+        for (pos = 0; pos <= usuarios.length-1; pos++) {
+            tmp = usuarios[pos];
+            if (usuarioLogin === tmp["Nombre"]) {
                 tipoUser = tmp["Rol"];
-                $("#usarioLogueado").html("Bienvenido " + usuarioLogin + "!");
-                masVendidasDisparo();
-                generoListadoOferta(usuarioLogin);
-                loginCheck(usuarioLogin,tipoUser);
             }
         }
-}else {
-        alert("Error, contraseña incorrecta :´(");
+        $("#usarioLogueado").html("Bienvenido " + usuarioLogin + "!");
+        masVendidasDisparo();
+        generoListadoOferta(usuarioLogin);
+        loginCheck(usuarioLogin, tipoUser);
+    } else {
+        alert("Error, usuario no existe o contraseña incorrecta :´(");
     }
 
 }
@@ -210,10 +239,10 @@ function cargarOfertas(){
     var fechaVal = $("#fechaValidez").val();
     var foto = $("#txtFoto").val();
     var nombreFoto = foto.substr(12);
-    if (!isNaN(precioOferta)) {
+    var fechaOK = validarFecha(fechaVal);
+    if (!isNaN(precioOferta) && fechaOK !== "Mal") {
         existe = buscar(nombreHosp,tipo);  //llamamos a funcion para ver si oferta ya existe
         if (!existe) {
-            if(fechaVal > FechaActual){
             autoIdOK = autoId(tipo); //llamada a funcion para autonumerar oferta nueva
             $("#idOfertaForm").html(autoIdOK);
             tmpoferta["Id"] = autoIdOK;
@@ -221,7 +250,7 @@ function cargarOfertas(){
             tmpoferta["Ubicacion"] = ubicacion;
             tmpoferta["Tipo"] = tipoHosp;
             tmpoferta["Precio"] = precioOferta;
-            tmpoferta["FinValidez"] = fechaVal;
+            tmpoferta["FinValidez"] = fechaOK;
             tmpoferta["Foto"] = nombreFoto;
             tmpoferta["Estado"] = "Activa";
             ofertas[ofertas.length] = tmpoferta;    //Se da de alta oferta nueva en array
@@ -233,25 +262,58 @@ function cargarOfertas(){
             $("#respCreaOferta").html("Oferta cargada correctamente!");
             generoListadoOferta();
         }else {
-                $("#respCreaOferta").html("Error, fecha oferta tiene que ser mayor a fecha actual");
-            }
-
-        }else {
             $("#respCreaOferta").html("Error, oferta ya existe. Ingrese una diferente");
             $("#txtPrecio").val(0);
         }
 
     }else {
-        $("#respCreaOferta").html("Precio debe ser valor numérico");
+        $("#respCreaOferta").html("Precio debe ser valor numérico y fecha posterior a actual");
     }
 
 }
+function validarFecha(fecha){
+    var pos, dia, mes, ano, fechaDia = 0, fechaAno = 0, fechaMes = 0, fechaOK, mensaje = "";
+    dia = FechaActual.getDate();
+    mes = parseInt(FechaActual.getMonth()) + 1;
+    ano = FechaActual.getFullYear();
+    for (pos = 0; pos <= fecha.length-1; pos++) {
+        if (pos <= 3 ) {
+            fechaAno = parseInt((fechaAno + fecha[pos]));
+        }
+        if (pos >= 5 && pos <= 6) {
+            fechaMes = parseInt((fechaMes + fecha[pos]));
+        }
+        if (pos >= 8 && pos <= 9) {
+            fechaDia = parseInt((fechaDia + fecha[pos]));
+        }
+    }
+    
+    if (fechaAno < ano) {
+        mensaje = "Mal";
+        return mensaje;
+    }else {
+        if (fechaAno >= ano && fechaMes < mes) {
+            mensaje = "Mal";
+            return mensaje;
+        }else {
+            if(fechaAno >= ano && fechaMes >= mes && fechaDia < dia){
+                mensaje = "Mal";
+                return mensaje;
+            }else {
+                mensaje = (fechaDia + "-" + fechaMes + "-" + fechaAno);
+                return mensaje;
+            }
 
+        }
+    }
+}
 function generoListadoOferta() {
-    var listado = "", pos, tmp;
+    var listado = "", pos, tmp, fechaOK;
     for (pos = 0; pos <= ofertas.length - 1; pos++) {
         tmpOferta = ofertas[pos];
-        if (tipoUser === "registrado") {
+        fechaOK = validarFecha(tmpOferta["FinValidez"]);
+        
+        if (tipoUser === "registrado" && fechaOK !== "Mal") {
             if (tmpOferta["Estado"] === "Activa") {
                 if (tmpOferta["Destacada"] === "SI") {
                     tmp = tmpOferta["Id"];
@@ -343,6 +405,7 @@ function generoListadoOferta() {
                 }
             }
         }
+    
     }
     $("#contenidoOfertas3").html(listado);
 }
@@ -574,7 +637,7 @@ function estadoDeCuenta(){
     $("#totalEstadoCuenta").html("Total: " + total);
 }
 
-function buscar(nombre, tipo) {
+function buscar(nombre, pass, tipo) {
     var tmp;
     var existe = false;
     var loginUser;
@@ -611,12 +674,14 @@ function buscar(nombre, tipo) {
             return existe;
         }
         if (tipo === "usuario") {
+            loginUser = false;
             for (pos = 0; pos <= usuarios.length - 1; pos++) {
                 tmp = usuarios[pos];
-                if (tmp["Nombre"] === nombre) {
+                if (tmp["Nombre"] === nombre && tmp["Clave"] === pass) {
                     loginUser = true;
                 }
             }
+            
             return loginUser;
         }
     }

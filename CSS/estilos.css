@@ -96,6 +96,10 @@ div.MostrarDatosUsuario{
     background-color: #9E7B16;
     border: 1px solid black;
 }
+div.MostrarDatosUsuario form.formOfertas{
+    position: relative;
+    right: 268px;
+}
 div.registrarme{
     width: 70%;
     height: 300px;
